@@ -6,9 +6,9 @@ export interface HeaderState {}
 export class Header extends React.Component<HeaderProps, HeaderState> {
     render() {
         return ( 
-            <div className={this.props.className}>
+            <header className={this.props.className}>
                 {this.props.children}
-            </div>
+            </header>
         );
     }
 }

@@ -1,15 +1,14 @@
 import * as React from "react";
 
 export interface LogoProps { 
-    classes : string,
-     
+    classes : string
 }
 
 export class Logo extends React.Component<LogoProps> {
     render() {
         return (
             <div className = {"c-logo " + (this.props.classes)}>
-                This is logo.....
+                <img src={"logo"} className="c-logo_img" alt="logo"/>
             </div>
         );
     }
