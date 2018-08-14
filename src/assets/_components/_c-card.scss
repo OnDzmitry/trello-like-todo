@@ -1,0 +1,12 @@
+.c-card {
+    margin: 5px;
+    background-color: white;
+    border-radius: 3px; 
+    height: 100%;
+    &-text {
+        display: block;
+        padding: 11px;
+        word-break: normal;
+        
+    }
+}
