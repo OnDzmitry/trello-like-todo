@@ -1,0 +1,12 @@
+.c-column {
+    margin: 16px;
+    background-color: #E1E3E5;
+    width: 300px;
+    border-radius: 5px; 
+    &>* {
+        margin: 8px;
+    }
+    &-add-button {
+        text-transform: none;
+    }
+}

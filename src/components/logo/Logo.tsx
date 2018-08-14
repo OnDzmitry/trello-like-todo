@@ -7,9 +7,9 @@ export interface LogoProps {
 export class Logo extends React.Component<LogoProps> {
     render() {
         return (
-            <div className = {"c-logo " + (this.props.classes)}>
-                <img src={"logo"} className="c-logo_img" alt="logo"/>
-            </div>
+            <a className = {"c-logo " + (this.props.classes)} href="#">
+                <span className="c-logo_img"></span>
+            </a>
         );
     }
 }
