@@ -2,11 +2,14 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import store from "./store";
 import { App } from "./components/App";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
+import { State } from './store/reducers'
+import { addColumn } from "./store/actions/column";
+import { Dispatch } from "redux";
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <App/>
     </Provider>,
     document.getElementById("root")
 );

@@ -1,4 +1,5 @@
 import Column from "../../models/Column";
+
 import { ActionTypes } from "../actions/column";
 import { Action } from "../actions/column";
 
@@ -9,8 +10,8 @@ export interface State {
 export const initialState: State = {
     columns: [{
         id: 0,
-        title: "FirstCard",
-        cards: []
+        title: "First Column",
+        cards: [{text: "test text"}]
     },]
 }
 
