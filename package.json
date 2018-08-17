@@ -34,5 +34,7 @@
     "build": "webpack --mode production",
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "uniqid": "^5.0.3"
+  }
 }

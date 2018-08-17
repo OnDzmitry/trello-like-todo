@@ -1,8 +1,8 @@
 import * as React from "react";
 import { List } from "@material-ui/core";
 
-export interface CardProps { className?: string}
-export interface CardState { title : string }
+export interface CardProps { className?: string, title: string, text : string}
+export interface CardState {  }
 
 export class Card extends React.Component<CardProps, CardState> {
     constructor(props: CardProps) {
@@ -12,8 +12,11 @@ export class Card extends React.Component<CardProps, CardState> {
     render() {
         return (                
             <div className="c-card">
+                <div className="c-card-title">
+                    {this.props.title}
+                </div>
                 <div className="c-card-text">
-                    {this.state.title}
+                    {this.props.text}
                 </div>
             </div>
         );

@@ -5,7 +5,6 @@ import { App } from "./components/App";
 import { Provider, connect } from "react-redux";
 import { State } from './store/reducers'
 import { addColumn } from "./store/actions/column";
-import { Dispatch } from "redux";
 
 ReactDOM.render(
     <Provider store={store}>

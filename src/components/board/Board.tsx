@@ -1,7 +1,8 @@
 import * as React from "react";
 import ColumnModel from '../../models/Column'
-import { Grid } from "@material-ui/core";
-import { Column } from '../column/Column';
+import { Grid, Button } from "@material-ui/core";
+import Column from '../../containers/Column';
+
 
 export interface BoardProps { className? : string, columns? : ColumnModel[] }
 export interface BoardState {}
@@ -11,7 +12,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
         const { columns } = this.props;
 
         return columns.map((column) => {
-            return <Column id={column.id}/>;
+            return <Column id={column.id} title={column.title} cards={column.cards}/>;
         });
     }
     render() {
