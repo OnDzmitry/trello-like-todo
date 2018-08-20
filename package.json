@@ -26,7 +26,9 @@
     "react-redux": "^5.0.7",
     "react-svg-loader": "^2.1.0",
     "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0"
+    "style-loader": "^0.21.0",
+    "immutable": "^3.8.2",
+    "uniqid": "^5.0.3"
   },
   "scripts": {
     "watch": "webpack --watch",
@@ -34,7 +36,4 @@
     "build": "webpack --mode production",
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
   },
-  "dependencies": {
-    "uniqid": "^5.0.3"
-  }
 }
