@@ -1,16 +1,16 @@
 import Column from '../../models/Column';
 
 export enum ActionTypes {
-    ADD_COLUMN = "ADD_COLUMN",
+    CREATE_COLUMN = "CREATE_COLUMN",
     REMOVE_COLUMN = "REMOVE_COLUMN",
 }
 
-export interface AddColumnAction { type: ActionTypes.ADD_COLUMN, payload: { column: Column}}
+export interface CreateColumnAction { type: ActionTypes.CREATE_COLUMN, payload: { column: Column}}
 export interface RemoveColumnAction { type: ActionTypes.REMOVE_COLUMN, payload: { columnId: number}}
 
-export function addColumn(column: Column): AddColumnAction {
+export function createColumn(column: Column): CreateColumnAction {
     return {
-        type: ActionTypes.ADD_COLUMN,
+        type: ActionTypes.CREATE_COLUMN,
         payload: {
             column: column,
         }
@@ -24,4 +24,4 @@ export function removeColumn(columnId: number): RemoveColumnAction {
     };
 }
 
-export type Action = AddColumnAction | RemoveColumnAction;
+export type Action = CreateColumnAction | RemoveColumnAction;
