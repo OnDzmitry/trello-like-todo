@@ -6,7 +6,7 @@ import CardModel from "../../models/Card";
 export interface ColumnProps { 
     className?: string,
     id : string,
-    title : string,
+    title? : string,
     cards?: CardModel[],
     openCardPopup: Function
     closeCardPopup: Function
@@ -15,12 +15,11 @@ export interface ColumnProps {
 export class Column extends React.Component<ColumnProps, {}> {
     constructor(props: ColumnProps) {
         super(props);
-        this.state = {title : "New column"};
         this.openCardPopup = this.openCardPopup.bind(this);
     }
     renderCards() {
         const { cards } = this.props;
-
+        console.log(this.props.cards);
         return cards.map((card) => {
             return <Card title={card.title} text={card.text}/>;
         });

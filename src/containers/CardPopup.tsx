@@ -4,17 +4,17 @@ import { closeCardPopup, openCardPopup } from '../store/actions/cardPopup';
 import { CardPopup } from '../components/card/CardPopup';
 import { Dispatch } from 'redux';
 import { App } from '../components/App';
-import { addCardToColumn } from '../store/actions/card';
+import { createCard } from '../store/actions/cards';
+import { createColumn } from '../store/actions/columns';
 
 const mapStateToProps = (state: State) => {
-    console.log(state.cardPopup);
     return state.cardPopup;
 };
 
 const mapDispatchToProps = {
-    openCardPopup: openCardPopup,
     closeCardPopup: closeCardPopup,
-    addCardToColumn: addCardToColumn
+    createCard: createCard,
+    createColumn: createColumn
 };
 
 export default connect<any, any, any>(mapStateToProps, mapDispatchToProps)(CardPopup);

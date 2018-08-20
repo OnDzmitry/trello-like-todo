@@ -12,11 +12,11 @@ export class Board extends React.Component<BoardProps, BoardState> {
         const { columns } = this.props;
 
         return columns.map((column) => {
-            return <Column id={column.id} title={column.title} cards={column.cards}/>;
+            return <Column id={column.id}/>;
         });
     }
     render() {
-        return (                
+        return (
             <div className={"c-board " + this.props.className}>
                 <Grid 
                     style={{overflowX: "auto", margin: 0}}

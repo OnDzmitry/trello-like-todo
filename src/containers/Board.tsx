@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { State } from '../store/reducers'
-import { addColumn } from '../store/actions/column';
-import { removeColumn } from '../store/actions/column';
+import { createColumn } from '../store/actions/columns';
+import { removeColumn } from '../store/actions/columns';
 import { Board } from '../components/board/Board';
 import { Dispatch } from 'redux';
 import { App } from '../components/App';
@@ -11,7 +11,7 @@ const mapStateToProps = (state: State) => (
 );
 
 const mapDispatchToProps = {
-    addColumn: addColumn
+    createColumn: createColumn
 };
 
 export default connect<any, any, any>(mapStateToProps, mapDispatchToProps)(Board);

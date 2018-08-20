@@ -7,21 +7,46 @@ export interface CardPopupProps {
     opened: boolean,
     columnId: string,
     cardId?: string,
-    closeCardPopup: Function
+    closeCardPopup: Function,
+    createCard: Function,
+    createColumn: Function
 }
 
 export class CardPopup extends React.Component<CardPopupProps, {}> {
     constructor(props: CardPopupProps) {
-        super(props);
-        this.handleClose = this.handleClose.bind(this);
-        this.addNewCard = this.addNewCard.bind(this);
+      super(props);
+      this.handleClose = this.handleClose.bind(this);
+      this.addNewCard = this.addNewCard.bind(this);
+      this.updateText = this.updateText.bind(this);
+      this.updateTitle = this.updateTitle.bind(this);
     }
+
+    cardTitle = '';
+    cardText = '';
+
     addNewCard() {
-        this.handleClose();
+      const card = {
+        columnId: this.props.columnId,
+        title: this.cardTitle,
+        text: this.cardText
+      };
+
+      this.props.createCard(card);
+      this.handleClose();
     }
+
+    updateTitle(event) {
+      this.cardTitle = event.target.value;
+    }
+
+    updateText(event) {
+      this.cardText = event.target.value;
+    }
+
     handleClose() {
-        this.props.closeCardPopup();
+      this.props.closeCardPopup();
     }
+
     render() {
         return (                
         <Dialog
@@ -34,20 +59,21 @@ export class CardPopup extends React.Component<CardPopupProps, {}> {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
+              id="title"
               label="Title"
               type="text"
               fullWidth
+              onChange={this.updateTitle}
             />
             <TextField
               multiline={true}
               rowsMax={10}
-              autoFocus
               margin="dense"
-              id="name"
+              id="text"
               label="Text"
               type="text"
               fullWidth
+              onChange={this.updateText}
             />
           </DialogContent>
           <DialogActions>
