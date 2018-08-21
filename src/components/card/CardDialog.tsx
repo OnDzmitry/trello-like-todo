@@ -1,30 +1,26 @@
 import * as React from "react";
 import { List, Modal, TextField, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@material-ui/core";
-import { closeCardPopup } from "../../store/actions/cardPopup";
+import { closeCardDialog } from "../../store/actions/cardDialog";
 
-export interface CardPopupProps {
+export interface CardDialogProps {
     className?: string,
     opened: boolean,
     columnId: string,
     cardId?: string,
-    closeCardPopup: Function,
+    closeCardDialog: Function,
     createCard: Function,
     createColumn: Function
 }
 
-export class CardPopup extends React.Component<CardPopupProps, {}> {
-    constructor(props: CardPopupProps) {
+export class CardDialog extends React.Component<CardDialogProps, {}> {
+    constructor(props: CardDialogProps) {
       super(props);
-      this.handleClose = this.handleClose.bind(this);
-      this.addNewCard = this.addNewCard.bind(this);
-      this.updateText = this.updateText.bind(this);
-      this.updateTitle = this.updateTitle.bind(this);
     }
 
     cardTitle = '';
     cardText = '';
 
-    addNewCard() {
+    addNewCard = () => {
       const card = {
         columnId: this.props.columnId,
         title: this.cardTitle,
@@ -35,16 +31,16 @@ export class CardPopup extends React.Component<CardPopupProps, {}> {
       this.handleClose();
     }
 
-    updateTitle(event) {
+    updateTitle = (event) => {
       this.cardTitle = event.target.value;
     }
 
-    updateText(event) {
+    updateText = (event) => {
       this.cardText = event.target.value;
     }
 
-    handleClose() {
-      this.props.closeCardPopup();
+    handleClose = () => {
+      this.props.closeCardDialog();
     }
 
     render() {
@@ -81,7 +77,7 @@ export class CardPopup extends React.Component<CardPopupProps, {}> {
               Cancel
             </Button>
             <Button onClick={this.addNewCard} color="primary">
-              Add new
+              Add
             </Button>
           </DialogActions>
         </Dialog>

@@ -35,5 +35,5 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
-  },
+  }
 }

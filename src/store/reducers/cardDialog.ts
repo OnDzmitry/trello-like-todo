@@ -1,6 +1,6 @@
 import * as uniqid from "uniqid";
-import { ActionTypes } from "../actions/cardPopup";
-import { Action } from "../actions/cardPopup";
+import { ActionTypes } from "../actions/cardDialog";
+import { Action } from "../actions/cardDialog";
 
 export interface State {
     opened: boolean,
@@ -15,7 +15,7 @@ export const initialState: State = {
 
 export function reducer(state: State = initialState, action: Action) {
     switch(action.type) {
-        case ActionTypes.OPEN_CARD_POPUP: {
+        case ActionTypes.OPEN_CARD_DIALOG: {
             return {
                 ...state, 
                 opened: action.payload.opened,
@@ -23,7 +23,7 @@ export function reducer(state: State = initialState, action: Action) {
                 cardId: action.payload.cardId 
             };
         }
-        case ActionTypes.CLOSE_CARD_POPUP: {
+        case ActionTypes.CLOSE_CARD_DIALOG: {
             return {
                 ...state, 
                 opened: action.payload.opened, 

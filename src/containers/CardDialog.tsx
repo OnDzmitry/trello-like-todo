@@ -1,20 +1,19 @@
 import { connect } from 'react-redux';
 import { State } from '../store/reducers'
-import { closeCardPopup, openCardPopup } from '../store/actions/cardPopup';
-import { CardPopup } from '../components/card/CardPopup';
+import { closeCardDialog, openCardDialog } from '../store/actions/cardDialog';
+import { CardDialog } from '../components/card/CardDialog';
 import { Dispatch } from 'redux';
 import { App } from '../components/App';
 import { createCard } from '../store/actions/cards';
 import { createColumn } from '../store/actions/columns';
 
 const mapStateToProps = (state: State) => {
-    return state.cardPopup;
+    return state.cardDialog;
 };
 
 const mapDispatchToProps = {
-    closeCardPopup: closeCardPopup,
-    createCard: createCard,
-    createColumn: createColumn
+    closeCardDialog: closeCardDialog,
+    createCard: createCard
 };
 
-export default connect<any, any, any>(mapStateToProps, mapDispatchToProps)(CardPopup);
+export default connect<any, any, any>(mapStateToProps, mapDispatchToProps)(CardDialog);

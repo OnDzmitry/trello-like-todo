@@ -18,16 +18,9 @@ export class Board extends React.Component<BoardProps, BoardState> {
     render() {
         return (
             <div className={"c-board " + this.props.className}>
-                <Grid 
-                    style={{overflowX: "auto", margin: 0}}
-                    spacing={32}
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="flex-start"
-                >
+                <div className={"c-board-list"}>
                     {this.renderColumns()}
-                </Grid>
+                </div>
             </div>
         );
     }

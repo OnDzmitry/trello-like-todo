@@ -1,23 +1,23 @@
 import * as React from "react";
-import { List } from "@material-ui/core";
+import { List, Button } from "@material-ui/core";
+import CardModel from "../../models/Card";
+import Subject from "@material-ui/icons/Subject";
 
-export interface CardProps { className?: string, title: string, text : string}
-export interface CardState {  }
+export interface CardProps { className?: string, data: CardModel}
 
-export class Card extends React.Component<CardProps, CardState> {
+export class Card extends React.Component<CardProps, {}> {
     constructor(props: CardProps) {
         super(props);
-        this.state = {title : "Text"};
     }
     render() {
         return (                
             <div className="c-card">
-                <div className="c-card-title">
-                    {this.props.title}
-                </div>
                 <div className="c-card-text">
-                    {this.props.text}
+                    {this.props.data.text}
                 </div>
+                <Button size="small" style={{minWidth: "24px", padding: 2, margin: "0 0 5px 5px"}}  aria-label="Add">
+                    <Subject/>
+                </Button>
             </div>
         );
     }

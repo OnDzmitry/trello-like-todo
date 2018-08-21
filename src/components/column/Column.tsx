@@ -8,37 +8,36 @@ export interface ColumnProps {
     id : string,
     title? : string,
     cards?: CardModel[],
-    openCardPopup: Function
-    closeCardPopup: Function
+    openCardDialog: Function
+    closeCardDialog: Function
 }
 
 export class Column extends React.Component<ColumnProps, {}> {
     constructor(props: ColumnProps) {
         super(props);
-        this.openCardPopup = this.openCardPopup.bind(this);
     }
     renderCards() {
         const { cards } = this.props;
-        console.log(this.props.cards);
+        
         return cards.map((card) => {
-            return <Card title={card.title} text={card.text}/>;
+            return <Card data={card}/>;
         });
     }
-    openCardPopup() {
-        this.props.openCardPopup(this.props.id);
+    openCardDialog = () => {
+        this.props.openCardDialog(this.props.id);
     }
     render() {
         return (                
             <div className="c-column">
                 <div className="c-column-title">{this.props.title}</div>
-                <List>
+                <List style={{maxHeight: "100%", overflow: "auto"}}>
                     {this.renderCards()}
                 </List>
                 <Button 
                     variant="text" 
                     fullWidth={true} 
                     style={{textTransform: "none"}} 
-                    onClick={this.openCardPopup}
+                    onClick={this.openCardDialog}
                 >
                     Add a card...
                 </Button>
