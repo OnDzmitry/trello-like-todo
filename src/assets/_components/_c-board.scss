@@ -1,5 +1,13 @@
 .c-board {
-    background-color: #007ABB;
-    min-width: 100%;
-    min-height: 100%;
+    
+    &-list {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 64px;
+        height: calc(100% - 64px);
+        position: absolute;
+        background-color: #007ABB;
+        min-width: 100%;
+        min-height: calc(100% - 64px);
+    }
 }

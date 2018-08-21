@@ -1,10 +1,17 @@
 .c-column {
+    display: inline-block;
     margin: 16px;
     background-color: #E1E3E5;
     width: 300px;
-    border-radius: 5px; 
+    max-height: calc(100% - 32px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
     &>* {
         margin: 8px;
+    }
+    &-title {
+        font-size: 20px;
     }
     &-add-button {
         text-transform: none;

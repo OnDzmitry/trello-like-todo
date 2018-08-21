@@ -1,7 +1,7 @@
 .c-header {
-    background-color: #00689F;
-    display: block;
-    min-width: 100%;
-    width: 100%;
-    padding: 10px;
+    &-logo {
+        position: absolute;
+        left: 50%;
+        right: 68px;
+    }
 }

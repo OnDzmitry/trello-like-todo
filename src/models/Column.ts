@@ -1,7 +1,6 @@
 import Card from './Card';
 
 export default interface Column {
-    id: number,
+    id: string,
     title: string,
-    cards: Card[]
 }
