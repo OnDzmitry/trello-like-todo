@@ -35,5 +35,9 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
+  },
+  "dependencies": {
+    "react-beautiful-dnd": "^9.0.1",
+    "styled-components": "^3.4.4"
   }
 }
