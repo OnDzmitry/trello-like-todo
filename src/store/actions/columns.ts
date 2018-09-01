@@ -8,6 +8,7 @@ export enum ActionTypes {
 
 export interface CreateColumnAction { type: ActionTypes.CREATE_COLUMN, payload: { column: Column}}
 export interface RemoveColumnAction { type: ActionTypes.REMOVE_COLUMN, payload: { columnId: number}}
+
 export interface ReorderColumns { 
     type: ActionTypes.REORDER_COLUMNS,
     payload: { 

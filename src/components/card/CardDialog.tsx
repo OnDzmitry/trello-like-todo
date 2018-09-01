@@ -21,13 +21,13 @@ export class CardDialog extends React.Component<CardDialogProps, {}> {
     cardText = '';
 
     addNewCard = () => {
+      const { columnId } = this.props;
       const card = {
-        columnId: this.props.columnId,
         title: this.cardTitle,
         text: this.cardText
       };
 
-      this.props.createCard(card);
+      this.props.createCard(columnId, card);
       this.handleClose();
     }
 

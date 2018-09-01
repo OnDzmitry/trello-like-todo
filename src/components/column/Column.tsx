@@ -4,66 +4,70 @@ import { Card } from "../card/Card";
 import CardModel from "../../models/Card";
 import ColumnModel from "../../models/Column";
 import { Draggable,Droppable } from 'react-beautiful-dnd';
+import Cards from "../../models/Cards";
 
-export interface ColumnProps {
-    className?: string,
-    id: string,
+export interface ColumnProps extends ColumnModel {
     index: number,
-    data: ColumnModel,
-    cards?: CardModel[],
+    className?: string,
     openCardDialog: Function
     closeCardDialog: Function
 }
 
-export class Column extends React.Component<ColumnProps, {}> {
-    constructor(props: ColumnProps) {
-        super(props);
-        
-    }
-    renderCards() {
-        const { cards } = this.props.data;
-        
-        return cards.map((card, index) => {
-            return <Card data={card} index={index}/>;
+export const Column = (props: ColumnProps) => {
+    const renderCards = () => {
+        const { cards } = props;
+
+        return cards.map((card: CardModel, index) => {
+            return <Card index={index} id={card.id} text={card.text} title={card.title} />;
         });
     }
-    openCardDialog = () => {
-        this.props.openCardDialog(this.props.id);
+
+    const openCardDialog = () => {
+        props.openCardDialog(props.id);
     }
-    render() {
-        return (
-            <Draggable draggableId={this.props.data.id} index={this.props.index}>
-                {(provided, snapshot) => (
-                    <div className="c-column"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                    >
+
+    const index = props.index;
+        const {id, title} = props;
+
+    return (
+        <Draggable draggableId={id} index={index}>
+            {(provided, snapshot) => (
+                <div 
+                    className="c-column" 
+                    ref={provided.innerRef} 
+                    {...provided.draggableProps} 
+                    {...provided.dragHandleProps}
+                >
+                    <div className="c-column-content">
                         <div className="c-column-title">
-                            {this.props.data.title}
+                            {title}
                         </div>
-                    <Droppable droppableId={this.props.id} type="CARD">
-                        {(provided, snapshot) => (
-                            <div ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}>
-                            <List style={{maxHeight: "100%", overflow: "auto"}}  >
-                                {this.renderCards()}
-                            </List>
-                            </div>
-                        )}
-                    </Droppable>
+                        <Droppable droppableId={id} type="CARD">
+                            {(provided, snapshot) => (
+                                <div 
+                                    ref={provided.innerRef} 
+                                    {...provided.draggableProps} 
+                                    {...provided.dragHandleProps}
+                                >
+                                    <List style={{maxHeight: "100%",overflow: "auto"}}  >
+                                        {renderCards()}
+                                    </List>
+                                </div>
+                            )}
+                        </Droppable>
                     <Button 
                         variant="text"
                         fullWidth={true}
                         style={{textTransform: "none"}}
-                        onClick={this.openCardDialog}
+                        onClick={openCardDialog}
                     >
                         Add a card...
                     </Button>
+                    {provided.placeholder}
+                    </div>
+                    {provided.placeholder}
                 </div>
-                )}
-            </Draggable>
-        );
-    }
+            )}
+        </Draggable>
+    );
 }

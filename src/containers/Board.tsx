@@ -7,9 +7,7 @@ import { Dispatch } from 'redux';
 import { App } from '../components/App';
 import { shiftCard } from '../store/actions/cards';
 
-const mapStateToProps = (state: State) => (
-    state.columns
-);
+const mapStateToProps = (state: State) => state.board;
 
 const mapDispatchToProps = {
     createColumn: createColumn,

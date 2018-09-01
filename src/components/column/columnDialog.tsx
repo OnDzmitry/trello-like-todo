@@ -23,59 +23,52 @@ export interface ColumnDialogState {
     opened: boolean
 }
 
+export const ColumnDialog = (props: ColumnDialogProps) => {
+    let columnTitle = '';
 
-export class ColumnDialog extends React.Component<ColumnDialogProps, ColumnDialogState> {
-    constructor(props: ColumnDialogProps) {
-      super(props);
-    }
-
-    columnTitle = '';
-
-    addNewColumn = () => {
+    const addNewColumn = () => {
       const column = {
-        title: this.columnTitle,
+        title: columnTitle,
       };
 
-      this.props.createColumn(column);
-      this.handleClose();
+      props.createColumn(column);
+      handleClose();
     }
 
-    updateTitle = (event) => {
-      this.columnTitle = event.target.value;
+    const updateTitle = (event) => {
+      columnTitle = event.target.value;
     }
 
-    handleClose = () => {
-      this.props.closeColumnDialog();
+    const handleClose = () => {
+      props.closeColumnDialog();
     }
 
-    render() {
-        return (                
+    return (
         <Dialog
-          open={this.props.opened}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
+            open={props.opened}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Add new column</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
-              label="Title"
-              type="text"
-              fullWidth
-              onChange={this.updateTitle}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.addNewColumn} color="primary">
-              Add new
-            </Button>
+            <DialogTitle id="form-dialog-title">Add new column</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="title"
+                    label="Title"
+                    type="text"
+                    fullWidth
+                    onChange={updateTitle}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={addNewColumn} color="primary">
+                    Add new
+                </Button>
           </DialogActions>
         </Dialog>
-        );
-    }
+    );
 }

@@ -11,22 +11,20 @@ export interface HeaderProps {
     openColumnDialog: Function
 }
 
-export class Header extends React.Component<HeaderProps, {}> {
-    openColumnDialog = () => {
-        this.props.openColumnDialog();
+export const Header = (props: HeaderProps) => {
+    const openColumnDialog = () => {
+        props.openColumnDialog();
     }
-    render() {
-        return (      
-            <AppBar position="fixed" className="c-header">
-                <Toolbar>
-                    <Typography style={{flexGrow: 1}} variant="title" color="inherit">
-                        Trello
-                    </Typography>
-                    <Button variant="fab" mini color="secondary" aria-label="Add" onClick={this.openColumnDialog}>
-                        <AddIcon/>
-                    </Button>
-                </Toolbar>
-            </AppBar>
-        );
-    }
+    return (      
+        <AppBar position="fixed" className="c-header">
+            <Toolbar>
+                <Typography style={{flexGrow: 1}} variant="title" color="inherit">
+                    Trello
+                </Typography>
+                <Button variant="fab" mini color="secondary" aria-label="Add" onClick={openColumnDialog}>
+                    <AddIcon/>
+                </Button>
+            </Toolbar>
+        </AppBar>
+    );
 }

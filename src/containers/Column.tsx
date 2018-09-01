@@ -10,6 +10,12 @@ import * as ColumnModel from '../models/Column';
 import { List } from 'immutable';
 import Card from '../models/Card';
 
+const mapStateToProps = (state: State) => {
+    return {
+        //columns: state.board.columns
+    }
+};
+
 const mapDispatchToProps = {
     openCardDialog: openCardDialog,
 };

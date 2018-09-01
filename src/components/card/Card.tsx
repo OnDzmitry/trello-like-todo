@@ -4,36 +4,50 @@ import CardModel from "../../models/Card";
 import Subject from "@material-ui/icons/Subject";
 import { Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
-export interface CardProps {
+export interface CardProps extends CardModel {
     className?: string;
-    data: CardModel;
     index: number;
 }
+
+export const CardContent = styled.div`
+    margin: 5px;
+    background-color: white;
+    border-radius: 3px; 
+    height: 100%;
+`;
+
+export const CardTitle = styled.div`
+    font-size: 20px;
+    padding: 7px;
+    word-break: normal;
+`;
 
 export class Card extends React.Component<CardProps, {}> {
     constructor(props: CardProps) {
         super(props);
     }
     render() {
+        const index = this.props.index;
+        const {id,title} = this.props;
         return (
-            <Draggable key={this.props.data.id} draggableId={this.props.data.id} index={this.props.index}>
+            <Draggable key={id} draggableId={id} index={index}>
                 {(provided, snapshot) => (  
-                <div 
-                    className="c-card"
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                >
-                    <div className="c-card-title">{this.props.data.title}</div>
-                    <Button
-                        size="small"
-                        style={{ minWidth: "24px", padding: 2, margin: "0 0 5px 5px" }}
-                        aria-label="Add"
+                    <CardContent
+                        innerRef={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
                     >
-                        <Subject/>
-                    </Button>
-                </div>
+                        <CardTitle>{title}</CardTitle>
+                        <Button
+                            size="small"
+                            style={{ minWidth: "24px", padding: 2, margin: "0 0 5px 5px" }}
+                            aria-label="Add"
+                        >
+                            <Subject/>
+                        </Button>
+                    </CardContent>
                 )}
             </Draggable>
         );

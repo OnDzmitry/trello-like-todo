@@ -1,8 +1,7 @@
 import * as React from "react";
 import "../assets/main.scss";
 import Board from '../containers/Board';
-import { Column } from './column/Column';
-import { State } from '../store/reducers/columns';
+import { Column } from './column/Column'
 import { Paper, List, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 import CardPopup from "../containers/CardDialog";
