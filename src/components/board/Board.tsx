@@ -15,16 +15,16 @@ export interface BoardProps {
 }
 
 const BoardContent = styled.div`
-    position: "absolute";
-    background-color: "#007ABB";
-    display: "inline-flex";
-    align-items: "flex-start";
-    margin-top: "64px";
-    min-height: "calc(100vh - 80px)";
-    min-width: "100vw";
+    position: absolute;
+    background-color: #007ABB;
+    display: inline-flex;
+    align-items: flex-start;
+    margin-top: 64px;
+    min-height: calc(100vh - 80px),
+    min-width: 100vw;
 `;
 
-export const Board = (props: BoardProps) => {
+export const Board: React.SFC<BoardProps> = (props: BoardProps) => {
     const boardStyles: React.CSSProperties = {
         position: "absolute",
         backgroundColor: "#007ABB",
