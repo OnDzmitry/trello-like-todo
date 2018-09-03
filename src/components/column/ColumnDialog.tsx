@@ -1,6 +1,5 @@
 import * as React from "react";
 import { 
-    List,
     TextField,
     Dialog,
     DialogTitle,
@@ -10,24 +9,20 @@ import {
     Button 
 } from "@material-ui/core";
 
-export interface ColumnDialogProps {
+import { List } from "immutable";
+import { DispatchFromProps } from '../../containers/СolumnDialog';
+import * as fromColumnDialogReducer from '../../store/reducers/columnDialog';
+
+export interface ColumnDialogProps extends DispatchFromProps, fromColumnDialogReducer.State {
     className?: string,
-    opened: boolean,
-    columnId: string,
-    cardId?: string,
-    closeColumnDialog: Function,
-    createColumn: Function,
 }
 
-export interface ColumnDialogState {
-    opened: boolean
-}
-
-export const ColumnDialog = (props: ColumnDialogProps) => {
+export function ColumnDialog(props: ColumnDialogProps) {
     let columnTitle = '';
 
     const addNewColumn = () => {
       const column = {
+        id: "",
         title: columnTitle,
       };
 

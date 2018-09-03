@@ -4,19 +4,18 @@ import { Card } from "../card/Card";
 import CardModel from "../../models/Card";
 import ColumnModel from "../../models/Column";
 import { Draggable,Droppable } from 'react-beautiful-dnd';
-import Cards from "../../models/Cards";
+import { DispatchFromProps } from '../../containers/Column';
 
 export interface ColumnProps extends ColumnModel {
     index: number,
-    className?: string,
-    openCardDialog: Function
-    closeCardDialog: Function
 }
 
-export const Column = (props: ColumnProps) => {
+type Props = ColumnProps & DispatchFromProps;
+
+export function Column(props: Props) {
     const renderCards = () => {
         const { cards } = props;
-
+        
         return cards.map((card: CardModel, index) => {
             return <Card index={index} id={card.id} text={card.text} title={card.title} />;
         });
@@ -26,8 +25,7 @@ export const Column = (props: ColumnProps) => {
         props.openCardDialog(props.id);
     }
 
-    const index = props.index;
-        const {id, title} = props;
+    const {id, title, index} = props;
 
     return (
         <Draggable draggableId={id} index={index}>

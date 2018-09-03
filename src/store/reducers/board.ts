@@ -1,10 +1,10 @@
 import Column from "../../models/Column";
 import * as uniqid from "uniqid";
 import { ActionTypes, Action } from "../actions/board";
-import { Map, List, fromJS } from 'immutable';
+import { Map, List } from 'immutable';
 
 export interface State {
-    columns: List<Column>
+    columns?: List<Column>
 }
 
 export const initialState: State = {
@@ -48,12 +48,9 @@ export function reducer(state: State = initialState, action: Action) {
             const endColumn = columns.get(startIndex);
             const startColumn = columns.get(endIndex);
 
-            const removed = columns.splice(startIndex, 1);
-            columns.splice(endIndex, 0, removed);
-
-            columns = columns.update(endIndex, () => endColumn);
-            
-            columns = columns.update(startIndex, () => startColumn);
+            const removedColumn = columns.get(startIndex);
+            columns = columns.splice(startIndex, 1).toList();
+            columns = columns.splice(endIndex, 0, removedColumn).toList();
             
             return {...state, columns: columns};
         }

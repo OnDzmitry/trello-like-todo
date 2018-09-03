@@ -3,7 +3,7 @@ export enum ActionTypes {
     CLOSE_COLUMN_DIALOG = "CLOSE_COLUMN_DIALOG"
 }
 
-export interface OpenColumnDialog { 
+export interface OpenColumnDialogAction { 
     type: ActionTypes.OPEN_COLUMN_DIALOG,
     payload: 
     { 
@@ -11,7 +11,7 @@ export interface OpenColumnDialog {
     }
 }
 
-export interface CloseColumnDialog { 
+export interface CloseColumnDialogAction { 
     type: ActionTypes.CLOSE_COLUMN_DIALOG,
     payload: 
     { 
@@ -19,7 +19,7 @@ export interface CloseColumnDialog {
     }
 }
 
-export function openColumnDialog(columnId: string, ColumnId?: string): OpenColumnDialog {
+export function openColumnDialog(columnId: string, ColumnId?: string): OpenColumnDialogAction {
     return {
         type: ActionTypes.OPEN_COLUMN_DIALOG,
         payload: {
@@ -28,7 +28,7 @@ export function openColumnDialog(columnId: string, ColumnId?: string): OpenColum
     };
 }
 
-export function closeColumnDialog(): CloseColumnDialog {
+export function closeColumnDialog(): CloseColumnDialogAction {
     return {
         type: ActionTypes.CLOSE_COLUMN_DIALOG,
         payload: {
@@ -37,4 +37,4 @@ export function closeColumnDialog(): CloseColumnDialog {
     };
 }
 
-export type Action = OpenColumnDialog | CloseColumnDialog;
+export type Action = OpenColumnDialogAction | CloseColumnDialogAction;

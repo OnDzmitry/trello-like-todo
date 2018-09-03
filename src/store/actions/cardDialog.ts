@@ -3,7 +3,7 @@ export enum ActionTypes {
     CLOSE_CARD_DIALOG = "CLOSE_CARD_DIALOG"
 }
 
-export interface OpenCardDialog { 
+export interface OpenCardDialogAction { 
     type: ActionTypes.OPEN_CARD_DIALOG,
     payload: 
     { 
@@ -13,7 +13,7 @@ export interface OpenCardDialog {
     }
 }
 
-export interface CloseCardDialog { 
+export interface CloseCardDialogAction { 
     type: ActionTypes.CLOSE_CARD_DIALOG,
     payload: 
     { 
@@ -21,7 +21,7 @@ export interface CloseCardDialog {
     }
 }
 
-export function openCardDialog(columnId: string, cardId?: string): OpenCardDialog {
+export function openCardDialog(columnId: string, cardId?: string): OpenCardDialogAction {
     return {
         type: ActionTypes.OPEN_CARD_DIALOG,
         payload: {
@@ -32,7 +32,7 @@ export function openCardDialog(columnId: string, cardId?: string): OpenCardDialo
     };
 }
 
-export function closeCardDialog(): CloseCardDialog {
+export function closeCardDialog(): CloseCardDialogAction {
     return {
         type: ActionTypes.CLOSE_CARD_DIALOG,
         payload: {
@@ -41,4 +41,4 @@ export function closeCardDialog(): CloseCardDialog {
     };
 }
 
-export type Action = OpenCardDialog | CloseCardDialog;
+export type Action = OpenCardDialogAction | CloseCardDialogAction;
