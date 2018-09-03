@@ -6,35 +6,36 @@ export enum ActionTypes {
     SHIFT_CARD = "SHIFT_CARD",
 }
 
-export interface CreateCardAction { type: ActionTypes.CREATE_CARD, payload: { card: Card } }
-export interface RemoveCardAction { type: ActionTypes.REMOVE_CARD, payload: { columnId: string}}
-export interface ShiftCardAction { type: ActionTypes.SHIFT_CARD, payload: { index: number, cardId: string, columnId: string }}
+export interface DndData {
+    droppableId: string,
+    index: number
+}
 
-export function createCard(card: Card): CreateCardAction {
+export interface CreateCardAction { type: ActionTypes.CREATE_CARD, payload: { columnId: string, card: Card }}
+
+export interface RemoveCardAction { type: ActionTypes.REMOVE_CARD, payload: { columnId: string}}
+
+export interface ShiftCardAction { type: ActionTypes.SHIFT_CARD, payload: { cardId: string, source: DndData, destination: DndData }}
+
+export function createCard(columnId: string, card: Card): CreateCardAction {
     return {
         type: ActionTypes.CREATE_CARD,
         payload: {
-            card
+            columnId: columnId,
+            card: card
         }
     };
 }
 
-export function shiftCard(index: number, cardId: string, columnId: string): ShiftCardAction {
+export function shiftCard(cardId: string, source: DndData, destination: DndData): ShiftCardAction {
     return {
         type: ActionTypes.SHIFT_CARD,
         payload: {
-            index: index,
             cardId: cardId,
-            columnId: columnId
+            source: source,
+            destination: destination
         }
     };
 }
 
-/*export function removeColumn(columnId: number): RemoveColumnAction {
-    return { 
-        type: ActionTypes.REMOVE_COLUMN,
-        payload: { columnId },
-    };
-}*/
-
-export type Action = CreateCardAction | ShiftCardAction;
+export type Action = CreateCardAction | ShiftCardAction | RemoveCardAction;

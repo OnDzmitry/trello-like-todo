@@ -1,17 +1,14 @@
 import { connect } from 'react-redux';
 import { State } from '../store/reducers'
-import { createColumn } from '../store/actions/columns';
-import { removeColumn } from '../store/actions/columns';
-import { Dispatch } from 'redux';
-import { App } from '../components/App';
-import { openCardDialog, closeCardDialog } from '../store/actions/cardDialog';
-import { Column } from '../components/column/Column';
-import * as ColumnModel from '../models/Column';
-import { List } from 'immutable';
-import Card from '../models/Card';
+import { openCardDialog, closeCardDialog, OpenCardDialogAction } from '../store/actions/cardDialog';
+import { Column, ColumnProps } from '../components/column/Column';
+
+export interface DispatchFromProps {
+    openCardDialog: (columnId: string, cardId?: string) => OpenCardDialogAction
+}
 
 const mapDispatchToProps = {
     openCardDialog: openCardDialog,
 };
 
-export default connect<any, any, any>(null, mapDispatchToProps)(Column);
+export default connect<{}, DispatchFromProps, ColumnProps>(() => ({}), mapDispatchToProps)(Column);

@@ -8,7 +8,8 @@ export enum ActionTypes {
 
 export interface CreateColumnAction { type: ActionTypes.CREATE_COLUMN, payload: { column: Column}}
 export interface RemoveColumnAction { type: ActionTypes.REMOVE_COLUMN, payload: { columnId: number}}
-export interface ReorderColumns { 
+
+export interface ReorderColumnsAction { 
     type: ActionTypes.REORDER_COLUMNS,
     payload: { 
         startIndex: number,
@@ -32,7 +33,7 @@ export function removeColumn(columnId: number): RemoveColumnAction {
     };
 }
 
-export function reorderColumns(startIndex: number, endIndex: number): ReorderColumns {
+export function reorderColumns(startIndex: number, endIndex: number): ReorderColumnsAction {
     return {
         type: ActionTypes.REORDER_COLUMNS,
         payload: { 
@@ -42,4 +43,4 @@ export function reorderColumns(startIndex: number, endIndex: number): ReorderCol
     }
 }
 
-export type Action = CreateColumnAction | RemoveColumnAction | ReorderColumns;
+export type Action = CreateColumnAction | RemoveColumnAction | ReorderColumnsAction;

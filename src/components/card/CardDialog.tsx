@@ -1,86 +1,86 @@
 import * as React from "react";
-import { List, Modal, TextField, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@material-ui/core";
-import { closeCardDialog } from "../../store/actions/cardDialog";
+import { 
+    TextField,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button 
+} from "@material-ui/core";
+import { State } from '../../store/reducers/cardDialog';
+import { DispatchFromProps } from "../../containers/CardDialog";
 
-export interface CardDialogProps {
+export interface CardDialogProps extends State {
     className?: string,
-    opened: boolean,
-    columnId: string,
-    cardId?: string,
-    closeCardDialog: Function,
-    createCard: Function,
-    createColumn: Function
 }
 
-export class CardDialog extends React.Component<CardDialogProps, {}> {
-    constructor(props: CardDialogProps) {
-      super(props);
+type Props = DispatchFromProps & CardDialogProps;
+
+export function CardDialog (props: Props) {
+    let cardTitle = '';
+    let cardText = '';
+
+    const addNewCard = () => {
+        const { columnId } = props;
+        const card = {
+            id: "",
+            title: cardTitle,
+            text: cardText
+        };
+
+        props.createCard(columnId, card);
+        handleClose();
     }
 
-    cardTitle = '';
-    cardText = '';
-
-    addNewCard = () => {
-      const card = {
-        columnId: this.props.columnId,
-        title: this.cardTitle,
-        text: this.cardText
-      };
-
-      this.props.createCard(card);
-      this.handleClose();
+    const updateTitle = (event) => {
+        cardTitle = event.target.value;
     }
 
-    updateTitle = (event) => {
-      this.cardTitle = event.target.value;
+    const updateText = (event) => {
+        cardText = event.target.value;
     }
 
-    updateText = (event) => {
-      this.cardText = event.target.value;
+    const handleClose = () => {
+        props.closeCardDialog();
     }
-
-    handleClose = () => {
-      this.props.closeCardDialog();
-    }
-
-    render() {
-        return (                
+    
+    return (                
         <Dialog
-          open={this.props.opened}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
+            open={props.opened}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
-              label="Title"
-              type="text"
-              fullWidth
-              onChange={this.updateTitle}
-            />
-            <TextField
-              multiline={true}
-              rowsMax={10}
-              margin="dense"
-              id="text"
-              label="Text"
-              type="text"
-              fullWidth
-              onChange={this.updateText}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.addNewCard} color="primary">
-              Add
-            </Button>
-          </DialogActions>
+            <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="title"
+                    label="Title"
+                    type="text"
+                    fullWidth
+                    onChange={updateTitle}
+                />
+                <TextField
+                    multiline={true}
+                    rowsMax={10}
+                    margin="dense"
+                    id="text"
+                    label="Text"
+                    type="text"
+                    fullWidth
+                    onChange={updateText}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={addNewCard} color="primary">
+                    Add
+                </Button>
+            </DialogActions>
         </Dialog>
-        );
-    }
+    );
 }

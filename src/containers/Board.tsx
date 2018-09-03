@@ -1,15 +1,18 @@
 import { connect } from 'react-redux';
 import { State } from '../store/reducers'
-import { createColumn, reorderColumns } from '../store/actions/columns';
-import { removeColumn } from '../store/actions/columns';
-import { Board } from '../components/board/Board';
-import { Dispatch } from 'redux';
-import { App } from '../components/App';
-import { shiftCard } from '../store/actions/cards';
+import { createColumn, reorderColumns, CreateColumnAction, ReorderColumnsAction, removeColumn } from '../store/actions/columns';
+import { Board, BoardProps } from '../components/board/Board';
+import { shiftCard, ShiftCardAction, DndData } from '../store/actions/cards';
+import * as fromBoardReducer from '../store/reducers/board';
+import Column from '../models/Column';
 
-const mapStateToProps = (state: State) => (
-    state.columns
-);
+const mapStateToProps = (state: State) => state.board;
+
+export interface DispatchFromProps {
+    createColumn: (column: Column) => CreateColumnAction,
+    reorderColumns: (startIndex: number, endIndex: number) => ReorderColumnsAction,
+    shiftCard: (cardId: string, source: DndData, destination: DndData) => ShiftCardAction,
+}
 
 const mapDispatchToProps = {
     createColumn: createColumn,
@@ -17,4 +20,4 @@ const mapDispatchToProps = {
     shiftCard: shiftCard
 };
 
-export default connect<any, any, any>(mapStateToProps, mapDispatchToProps)(Board);
+export default connect<fromBoardReducer.State, DispatchFromProps, BoardProps>(mapStateToProps, mapDispatchToProps)(Board);
