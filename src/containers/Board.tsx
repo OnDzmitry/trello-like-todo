@@ -6,7 +6,22 @@ import { shiftCard, ShiftCardAction, DndData } from '../store/actions/cards';
 import * as fromBoardReducer from '../store/reducers/board';
 import Column from '../models/Column';
 
-const mapStateToProps = (state: State) => state.board;
+const mapStateToProps = (state: State) => {
+    let { columns } = state.board;
+    const { cards } = state.board;
+    
+    columns = columns.map((column) => {
+        if (column.id in cards) {
+            column.cards = cards[column.id];
+        }
+        console.log(column);
+        return column;
+    }).toList();
+
+    return {
+        columns: columns
+    }
+};
 
 export interface DispatchFromProps {
     createColumn: (column: Column) => CreateColumnAction,
