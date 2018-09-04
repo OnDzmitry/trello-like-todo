@@ -29,12 +29,20 @@ export function reducer(state: State = initialState, action: Action) {
             const { columnId } = action.payload;
             const newCard = {...action.payload.card, id: uniqid()};
 
-            cards[columnId] = cards[columnId].push(newCard);
+            cards[columnId] = !cards[columnId] ? List([newCard]) : cards[columnId].push(newCard);
+
             return {...cards};
         }
         case ActionTypes.SHIFT_CARD: {
+            let cards = state;
+            const { cardId, source, destination } = action.payload;
+
+            const sourceCard = cards[source.droppableId].get(source.index);
             
-            return {...state};
+            cards[destination.droppableId] = cards[destination.droppableId].insert(destination.index, sourceCard);
+            cards[source.droppableId] = cards[source.droppableId].remove(source.index);
+
+            return {...cards};
         }
         default:
             return state;

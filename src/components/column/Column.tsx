@@ -15,10 +15,12 @@ type Props = ColumnProps & DispatchFromProps;
 export function Column(props: Props) {
     const renderCards = () => {
         const { cards } = props;
-        
-        return cards.map((card: CardModel, index) => {
-            return <Card index={index} id={card.id} text={card.text} title={card.title} />;
-        });
+
+        if (cards) {
+            return cards.map((card: CardModel, index) => {
+                return <Card index={index} id={card.id} text={card.text} title={card.title} />;
+            });
+        }
     }
 
     const openCardDialog = () => {
