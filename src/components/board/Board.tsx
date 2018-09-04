@@ -16,12 +16,18 @@ type Props = BoardProps & DispatchFromProps;
 
 const BoardContent = styled.div`
     position: absolute;
+    top: 64px;
+    bottom: 0px;
+    min-width: 100%;
     background-color: #007ABB;
     display: inline-flex;
     align-items: flex-start;
-    margin-top: 64px;
-    min-height: calc(100vh - 80px);
-    min-width: 100vw;
+`;
+
+const ColumnList = styled.div`
+    display: inline-flex;
+    align-items: flex-start;
+    max-height: calc(100% - 128px);
 `;
 
 export function Board(props: Props) {
@@ -58,8 +64,10 @@ export function Board(props: Props) {
             <Droppable droppableId="board" type="COLUMN" direction="horizontal">
                 {(provided, snapshot) => (
                     <BoardContent innerRef={provided.innerRef}>
-                        {renderColumns()}
-                        {provided.placeholder}
+                        <ColumnList>
+                            {renderColumns()}
+                            {provided.placeholder}
+                        </ColumnList>
                     </BoardContent>
                 )}
             </Droppable>

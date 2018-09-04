@@ -2,13 +2,16 @@ import Column from "../../models/Column";
 import * as uniqid from "uniqid";
 import { ActionTypes, Action } from "../actions/board";
 import { Map, List } from 'immutable';
+import localState from '../local-store';
 
 export type State = List<Column>;
 
-export const initialState: State = List([{
+export const initialState: State = localState && localState.board.columns ? 
+    List(localState.board.columns) : 
+    List([{
         id: "0asd",
         title: "First Column",
-}]);
+    }]);
 
 export function reducer(state: State = initialState, action: Action) {
     switch(action.type) {

@@ -4,11 +4,11 @@ import { Action } from "../actions/cards";
 import { List, Map } from "immutable";
 import Cards from "../../models/Cards";
 import Column from "../../models/Column";
-
+import localState from '../local-store';
 
 export type State = Cards;
 
-export const initialState: State = {
+export const initialState: State = localState && localState.board.cards ? localState.board.cards : {
     "0asd": List([
         {
             id: "01",
