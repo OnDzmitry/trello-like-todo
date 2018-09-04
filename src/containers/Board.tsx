@@ -14,7 +14,6 @@ const mapStateToProps = (state: State) => {
         if (column.id in cards) {
             column.cards = cards[column.id];
         }
-        console.log(column);
         return column;
     }).toList();
 

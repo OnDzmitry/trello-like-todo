@@ -29,7 +29,8 @@ export function reducer(state: State = initialState, action: Action) {
             const { columnId } = action.payload;
             const newCard = {...action.payload.card, id: uniqid()};
 
-            cards[columnId] = !cards[columnId] ? List([newCard]) : cards[columnId].push(newCard);
+            cards[columnId] = !(columnId in cards) ? List(): cards[columnId];
+            cards[columnId] = cards[columnId].push(newCard);
 
             return {...cards};
         }
@@ -38,9 +39,10 @@ export function reducer(state: State = initialState, action: Action) {
             const { cardId, source, destination } = action.payload;
 
             const sourceCard = cards[source.droppableId].get(source.index);
-            
-            cards[destination.droppableId] = cards[destination.droppableId].insert(destination.index, sourceCard);
-            cards[source.droppableId] = cards[source.droppableId].remove(source.index);
+            cards[destination.droppableId] = !(destination.droppableId in cards) ? List(): cards[destination.droppableId];
+
+            cards[source.droppableId] = cards[source.droppableId].delete(source.index);
+            cards[destination.droppableId] = cards[destination.droppableId].insert(destination.index, sourceCard).toList();
 
             return {...cards};
         }
