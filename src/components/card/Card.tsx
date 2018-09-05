@@ -33,7 +33,7 @@ interface CardContentProps {
 }
 
 const CardContent = styled.div<CardContentProps>`
-    transform: ${props => props.isDragging ? 'rotate(-10deg)' : 'rotate(0deg)'};
+    transform: ${props => props.isDragging ? 'rotate(3deg)' : 'rotate(0deg)'};
     &:hover ${CardButton}{
         display: block !important;
     }

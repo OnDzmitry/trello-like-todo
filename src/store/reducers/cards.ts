@@ -3,12 +3,10 @@ import { ActionTypes } from "../actions/cards";
 import { Action } from "../actions/cards";
 import { List, Map } from "immutable";
 import Cards from "../../models/Cards";
-import Column from "../../models/Column";
-import localState from '../local-store';
 
 export type State = Cards;
 
-export const initialState: State = localState && localState.board.cards ? localState.board.cards : {
+export const initialState: State = {
     "0asd": List([
         {
             id: "01",
@@ -20,9 +18,10 @@ export const initialState: State = localState && localState.board.cards ? localS
             title: "Second Card",
             text: "asdas",
         }
-])};
+    ])
+};
 
-export function reducer(state: State = initialState, action: Action) {
+export function reducer(state: State = null, action: Action) {
     switch(action.type) {
         case ActionTypes.CREATE_CARD: {
             let cards = state;

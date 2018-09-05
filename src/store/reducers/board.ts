@@ -11,6 +11,11 @@ export interface State {
     cards?: fromCards.State
 }
 
+export const initialState = {
+    columns: fromColumns.initialState,
+    cards: fromCards.initialState
+}
+
 export const reducer = combineReducers<State>({
     columns: fromColumns.reducer,
     cards: fromCards.reducer

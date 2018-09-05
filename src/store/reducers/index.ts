@@ -9,6 +9,12 @@ export interface State {
     columnDialog: fromColumnDialog.State,
 }
 
+export const initialState: State = {
+    board: fromBoard.initialState,
+    cardDialog: fromCardDialog.initialState,
+    columnDialog: fromColumnDialog.initialState,
+}
+
 export const reducer = combineReducers({
     board: fromBoard.reducer,
     cardDialog: fromCardDialog.reducer,
