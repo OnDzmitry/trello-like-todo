@@ -13,6 +13,25 @@ export interface ColumnProps extends ColumnModel {
 
 type Props = ColumnProps & DispatchFromProps;
 
+const ColumnEditButton = styled.button`
+    border-radius: 3px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    &:hover {
+        opacity: 1;
+        background-color: #d9dbdd;
+    }
+    opacity: 0.4;
+    display: none;
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    padding: 3px; 
+    margin: 5px;
+    font-size: 16px;
+`;
+
 const ColumnContent = styled.div`
     margin: 16px;
     width: 300px;

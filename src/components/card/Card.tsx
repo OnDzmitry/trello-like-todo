@@ -41,6 +41,7 @@ const CardContent = styled.div<CardContentProps>`
     &:hover ${CardButton}{
         display: block !important;
     }
+    white-space: pre-wrap;
     &:hover {
         background-color: #eff1f7;
     }
@@ -68,7 +69,7 @@ export function Card(props: Props) {
         const card: CardModel = {
             id: id,
             title: title,
-            text: text,
+            text: text
         };
 
         props.openCardDialog(columnId, card);

@@ -14,7 +14,7 @@ export interface DndData {
 
 export interface CreateCardAction { type: ActionTypes.CREATE_CARD, payload: { columnId: string, card: CardModel }}
 
-export interface RemoveCardAction { type: ActionTypes.REMOVE_CARD, payload: { columnId: string}}
+export interface RemoveCardAction { type: ActionTypes.REMOVE_CARD, payload: { columnId: string, card: CardModel }}
 
 export interface ShiftCardAction { type: ActionTypes.SHIFT_CARD, payload: { cardId: string, source: DndData, destination: DndData }}
 
@@ -28,6 +28,16 @@ export function createCard(columnId: string, card: CardModel): CreateCardAction 
             card: card
         }
     };
+}
+
+export function removeCard(columnId: string, card: CardModel): RemoveCardAction {
+    return {
+        type: ActionTypes.REMOVE_CARD,
+        payload: {
+            columnId: columnId,
+            card: card
+        }
+    }
 }
 
 export function updateCard(columnId: string, card: CardModel): UpdateCardAction {

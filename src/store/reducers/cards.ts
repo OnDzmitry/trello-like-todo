@@ -33,6 +33,18 @@ export function reducer(state: State = null, action: Action) {
 
             return {...cards};
         }
+        case ActionTypes.REMOVE_CARD: {
+            let cards = state;
+            const { columnId, card } = action.payload;
+
+            cards[columnId] = cards[columnId].delete(
+                cards[columnId].findIndex(
+                    (columnCard) => columnCard.id === card.id
+                )
+            );
+
+            return {...cards};
+        }
         case ActionTypes.UPDATE_CARD: {
             let cards = state;
             const { columnId, card } = action.payload;
