@@ -4,18 +4,21 @@ import { closeCardDialog, CloseCardDialogAction } from '../store/actions/cardDia
 import { CardDialog } from '../components/card/CardDialog';
 import { createCard, CreateCardAction } from '../store/actions/cards';
 import * as fromCardDialogReducer from '../store/reducers/cardDialog';
-import Card from '../models/Card';
+import { UpdateCardAction, updateCard} from '../store/actions/cards';
+import CardModel from '../models/Card';
 
 const mapStateToProps = (state: State) => {
     return state.cardDialog;
 };
 
 export interface DispatchFromProps {
+    updateCard: (columnId: string, card: CardModel) => UpdateCardAction
     closeCardDialog: () => CloseCardDialogAction,
-    createCard: (columnId: string, card: Card) => CreateCardAction
+    createCard: (columnId: string, card: CardModel) => CreateCardAction
 }
 
 const mapDispatchToProps = {
+    updateCard: updateCard,
     closeCardDialog: closeCardDialog,
     createCard: createCard
 };

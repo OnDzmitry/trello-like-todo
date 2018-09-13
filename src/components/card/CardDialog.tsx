@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { State } from '../../store/reducers/cardDialog';
 import { DispatchFromProps } from "../../containers/CardDialog";
+import CardModel from "../../models/Card";
 
 export interface CardDialogProps extends State {
     className?: string,
@@ -18,11 +19,12 @@ export interface CardDialogProps extends State {
 type Props = DispatchFromProps & CardDialogProps;
 
 export function CardDialog (props: Props) {
-    let cardTitle = '';
-    let cardText = '';
+    const { card, columnId } = props;
+
+    let cardTitle = card ? card.title : '';
+    let cardText = card ? card.text : '';
 
     const addNewCard = () => {
-        const { columnId } = props;
         const card = {
             id: "",
             title: cardTitle,
@@ -30,6 +32,17 @@ export function CardDialog (props: Props) {
         };
 
         props.createCard(columnId, card);
+        handleClose();
+    }
+
+    const EditCard = () => {
+        const editedCard: CardModel = {
+            id: card.id,
+            title: cardTitle,
+            text: cardText,
+        };
+
+        props.updateCard(columnId, editedCard);
         handleClose();
     }
 
@@ -51,7 +64,7 @@ export function CardDialog (props: Props) {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
         >
-            <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
+            <DialogTitle id="form-dialog-title">{ card ? "Edit card" : "Add new card" }</DialogTitle>
             <DialogContent>
                 <TextField
                     autoFocus
@@ -60,6 +73,7 @@ export function CardDialog (props: Props) {
                     label="Title"
                     type="text"
                     fullWidth
+                    defaultValue={cardTitle}
                     onChange={updateTitle}
                 />
                 <TextField
@@ -70,6 +84,7 @@ export function CardDialog (props: Props) {
                     label="Text"
                     type="text"
                     fullWidth
+                    defaultValue={cardText}
                     onChange={updateText}
                 />
             </DialogContent>
@@ -77,8 +92,8 @@ export function CardDialog (props: Props) {
                 <Button onClick={handleClose} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={addNewCard} color="primary">
-                    Add
+                <Button onClick={card ? EditCard : addNewCard} color="primary">
+                    {card ? "Edit" : "Add"}
                 </Button>
             </DialogActions>
         </Dialog>

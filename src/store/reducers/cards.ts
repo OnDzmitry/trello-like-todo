@@ -33,6 +33,15 @@ export function reducer(state: State = null, action: Action) {
 
             return {...cards};
         }
+        case ActionTypes.UPDATE_CARD: {
+            let cards = state;
+            const { columnId, card } = action.payload;
+            let columnCards = cards[columnId];
+            
+            cards[columnId] = columnCards.update(columnCards.findIndex((columnCard) => columnCard.id === card.id), () =>  card);
+
+            return {...cards};
+        }
         case ActionTypes.SHIFT_CARD: {
             let cards = state;
             const { cardId, source, destination } = action.payload;

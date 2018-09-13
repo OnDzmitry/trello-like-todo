@@ -1,6 +1,6 @@
 import * as React from "react";
 import { List, Button } from "@material-ui/core";
-import { Card } from "../card/Card";
+import Card from "../../containers/Card";
 import CardModel from "../../models/Card";
 import ColumnModel from "../../models/Column";
 import { Draggable,Droppable } from 'react-beautiful-dnd';
@@ -38,12 +38,14 @@ const CardsList = styled.div<CardListProps>`
 `;
 
 export function Column(props: Props) {
+    const {id, title, index} = props;
+
     const renderCards = () => {
         const { cards } = props;
 
         if (cards) {
             return cards.map((card: CardModel, index) => {
-                return <Card index={index} id={card.id} text={card.text} title={card.title} />;
+                return <Card index={index} columnId={id} id={card.id} text={card.text} title={card.title} />;
             });
         }
     }
@@ -51,8 +53,6 @@ export function Column(props: Props) {
     const openCardDialog = () => {
         props.openCardDialog(props.id);
     }
-
-    const {id, title, index} = props;
 
     return (
         <Draggable draggableId={id} index={index}>
