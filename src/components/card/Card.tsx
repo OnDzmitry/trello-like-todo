@@ -58,6 +58,8 @@ export function Card(props: CardProps) {
     const index = props.index;
     const {id,title} = props;
 
+    const clippedTitle: string = title.length > 350 ? title.slice(0, 350) + '...' : title;
+
     const handleClick = () => {
         alert('click');
     }
@@ -71,7 +73,7 @@ export function Card(props: CardProps) {
                     {...provided.dragHandleProps}
                 >
                     <CardContent isDragging={snapshot.isDragging}>
-                        <CardTitle>{title}</CardTitle>
+                        <CardTitle>{clippedTitle}</CardTitle>
                         <CardButton>
                             <EditIcon fontSize={"inherit"}/>
                         </CardButton>
