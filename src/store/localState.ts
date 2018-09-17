@@ -9,13 +9,14 @@ try {
     
     if (parsedState) {
         localState = parsedState;
-        let cards: Cards = localState.board.cards;
+        let cards: Cards = localState.board.present.cards;
         
         Object.keys(cards).forEach((key) => {
             cards[key] = List(cards[key]);
         });
         
-        localState.board = {...localState.board, columns: List(localState.board.columns), cards}
+        localState.board.present.columns = List(localState.board.present.columns);
+        localState.board.present.cards = cards;
     }
 } catch(e) {
     console.log('Parse error from localStorage');

@@ -14,7 +14,7 @@ export class App extends React.Component<AppProps, AppState> {
             <div>
                 <ColumnDialog/>
                 <CardDialog/>
-                <Header className={""}/>
+                <Header/>
                 <Board/>
             </div>
         );

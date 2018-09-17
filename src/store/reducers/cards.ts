@@ -4,7 +4,7 @@ import { Action } from "../actions/cards";
 import { List, Map } from "immutable";
 import Cards from "../../models/Cards";
 
-export type State = Cards;
+export type State = Cards; 
 
 export const initialState: State = {
     "0asd": List([

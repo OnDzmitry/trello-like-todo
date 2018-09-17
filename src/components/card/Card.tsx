@@ -60,6 +60,7 @@ const CardTitle = styled.div`
 `;
 
 export function Card(props: Props) {
+    let isDragging = false;
     const index = props.index;
     const {id, columnId, title, text} = props;
 
@@ -75,6 +76,10 @@ export function Card(props: Props) {
         props.openCardDialog(columnId, card);
     }
 
+    const pickOutCard = () => {
+        isDragging = true;
+    }
+
     return (
         <Draggable key={id} draggableId={id} index={index}>
             {(provided, snapshot) => (
@@ -82,6 +87,7 @@ export function Card(props: Props) {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    onClick={pickOutCard}
                 >
                     <CardContent isDragging={snapshot.isDragging}>
                         <CardTitle>{clippedTitle}</CardTitle>

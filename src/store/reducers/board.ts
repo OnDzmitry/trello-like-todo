@@ -11,7 +11,7 @@ export interface State {
     cards?: fromCards.State
 }
 
-export const initialState = {
+export const initialState: State = {
     columns: fromColumns.initialState,
     cards: fromCards.initialState
 }
