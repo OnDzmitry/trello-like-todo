@@ -4,9 +4,11 @@ import * as fromColumnDialog from './columnDialog';
 import { combineReducers, Reducer, compose } from 'redux';
 import undoable, { distinctState } from 'redux-undo';
 import * as fromCardDialogActions from '../actions/cardDialog';
+import * as fromColumns from './columns';
+import * as fromCards from './cards';
 
 export interface State {
-    board: {
+    board: { 
         present: fromBoard.State
     },
     cardDialog: fromCardDialog.State,

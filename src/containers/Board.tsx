@@ -5,24 +5,9 @@ import { Board, BoardProps } from '../components/board/Board';
 import { shiftCard, ShiftCardAction, DndData } from '../store/actions/cards';
 import * as fromBoardReducer from '../store/reducers/board';
 import Column from '../models/Column';
+import { List } from 'immutable';
 
-const mapStateToProps = (state: State) => {
-    let { columns } = state.board.present;
-    const { cards } = state.board.present;
-    
-    console.log(state);
-
-    columns = columns.map((column) => {
-        if (column.id in cards) {
-            column.cards = cards[column.id];
-        }
-        return column;
-    }).toList();
-
-    return {
-        columns: columns
-    }
-};
+const mapStateToProps = (state: State) => state.board.present;
 
 export interface DispatchFromProps {
     createColumn: (column: Column) => CreateColumnAction,
