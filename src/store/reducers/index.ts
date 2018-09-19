@@ -8,17 +8,13 @@ import * as fromColumns from './columns';
 import * as fromCards from './cards';
 
 export interface State {
-    board: { 
-        present: fromBoard.State
-    },
+    board: fromBoard.UndoableState,
     cardDialog: fromCardDialog.State,
     columnDialog: fromColumnDialog.State,
 }
 
 export const initialState: State = {
-    board: {
-        present: fromBoard.initialState
-    },
+    board: fromBoard.initialState,
     cardDialog: fromCardDialog.initialState,
     columnDialog: fromColumnDialog.initialState,
 }
@@ -26,7 +22,7 @@ export const initialState: State = {
 const excludeActions = [fromCardDialogActions.openCardDialog, fromCardDialogActions.openCardDialog];
 
 export const reducer = combineReducers({
-    board: undoable(fromBoard.reducer, {filter: distinctState(), excludeAction: excludeActions}),
+    board: fromBoard.Dreducer,
     cardDialog: fromCardDialog.reducer,
     columnDialog: fromColumnDialog.reducer
 });
