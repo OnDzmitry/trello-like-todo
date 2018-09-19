@@ -15,12 +15,12 @@ export function reducer(state: fromBoard.State = null, action: Action) {
                 columns.findIndex((column) => column.id === columnId),
                 (column) => {
                     column.cards = column.cards.push(newCard);
-
+                    
                     return {...column};
                 }
             );
 
-            return {...state, columns};
+            return {...state, ...columns};
         }
         case ActionTypes.REMOVE_CARD: {
             const { columnId, card } = action.payload;
@@ -36,7 +36,7 @@ export function reducer(state: fromBoard.State = null, action: Action) {
                 }
             )
 
-            return {...state, columns};
+            return {...state, ...columns};
         }
         case ActionTypes.UPDATE_CARD: {
             let { columns } = state;
@@ -55,7 +55,7 @@ export function reducer(state: fromBoard.State = null, action: Action) {
                 }
             );
 
-            return {...state, columns};
+            return {...state, ...columns};
         }
         case ActionTypes.SHIFT_CARD: {
             let { columns } = state;
@@ -81,7 +81,7 @@ export function reducer(state: fromBoard.State = null, action: Action) {
                 }
             );
 
-            return {...state, columns};
+            return {...state, ...columns};
         }
         default:
             return state;
