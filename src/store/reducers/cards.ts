@@ -4,7 +4,7 @@ import { Action } from "../actions/cards";
 import { List, Map } from "immutable";
 import Cards from "../../models/Cards";
 
-export type State = Cards;
+export type State = Cards; 
 
 export const initialState: State = {
     "0asd": List([
@@ -30,6 +30,27 @@ export function reducer(state: State = null, action: Action) {
 
             cards[columnId] = !(columnId in cards) ? List(): cards[columnId];
             cards[columnId] = cards[columnId].push(newCard);
+
+            return {...cards};
+        }
+        case ActionTypes.REMOVE_CARD: {
+            let cards = state;
+            const { columnId, card } = action.payload;
+
+            cards[columnId] = cards[columnId].delete(
+                cards[columnId].findIndex(
+                    (columnCard) => columnCard.id === card.id
+                )
+            );
+
+            return {...cards};
+        }
+        case ActionTypes.UPDATE_CARD: {
+            let cards = state;
+            const { columnId, card } = action.payload;
+            let columnCards = cards[columnId];
+            
+            cards[columnId] = columnCards.update(columnCards.findIndex((columnCard) => columnCard.id === card.id), () =>  card);
 
             return {...cards};
         }

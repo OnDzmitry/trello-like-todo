@@ -1,22 +1,30 @@
 import * as fromCardDialog from './cardDialog';
 import * as fromBoard from './board';
 import * as fromColumnDialog from './columnDialog';
-import { combineReducers, Reducer } from 'redux';
+import { combineReducers, Reducer, compose } from 'redux';
+import undoable, { distinctState } from 'redux-undo';
+import * as fromCardDialogActions from '../actions/cardDialog';
 
 export interface State {
-    board: fromBoard.State,
+    board: {
+        present: fromBoard.State
+    },
     cardDialog: fromCardDialog.State,
     columnDialog: fromColumnDialog.State,
 }
 
 export const initialState: State = {
-    board: fromBoard.initialState,
+    board: {
+        present: fromBoard.initialState
+    },
     cardDialog: fromCardDialog.initialState,
     columnDialog: fromColumnDialog.initialState,
 }
 
+const excludeActions = [fromCardDialogActions.openCardDialog, fromCardDialogActions.openCardDialog];
+
 export const reducer = combineReducers({
-    board: fromBoard.reducer,
+    board: undoable(fromBoard.reducer, {filter: distinctState(), excludeAction: excludeActions}),
     cardDialog: fromCardDialog.reducer,
     columnDialog: fromColumnDialog.reducer
 });
