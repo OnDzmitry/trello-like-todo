@@ -54,6 +54,7 @@ const CardsList = styled.div<CardListProps>`
     min-height: 30px;
     max-height: calc(100vh - 20vh);
     overflow-y: auto;
+    padding-bottom: 10px;
 `;
 
 export function Column(props: Props) {

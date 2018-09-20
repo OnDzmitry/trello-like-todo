@@ -12,4 +12,4 @@ const mapDispatchToProps = {
     openCardDialog: openCardDialog,
 };
 
-export default connect<{}, DispatchFromProps, ColumnProps>(() => ({}), mapDispatchToProps)(Column);
+export default connect<{}, DispatchFromProps, ColumnProps>(null, mapDispatchToProps)(Column);

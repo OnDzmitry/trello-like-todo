@@ -6,7 +6,12 @@ import localState from './localState';
 const store: Store<State> = createStore(reducer, localState, composeWithDevTools());
 
 store.subscribe(() => {
-    localStorage.setItem('board:state', JSON.stringify(store.getState()));
+    const boardState = {
+        board: {
+            present: store.getState().board.present
+        }
+    };
+    localStorage.setItem('board:state', JSON.stringify(boardState));
 });
 
 export default store;

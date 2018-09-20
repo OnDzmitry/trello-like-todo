@@ -1,22 +1,23 @@
 import { State, initialState } from './reducers';
 import { List, Map } from "immutable";
-import Cards from "../models/Cards";
+import Column from "../models/Column";
 
-let localState = initialState;
+let localState:State = initialState;
 
 try {
     const parsedState = JSON.parse(localStorage.getItem('board:state'));
     
     if (parsedState) {
         localState = parsedState;
-        let cards: Cards = localState.board.present.cards;
+        let columns: List<Column> = List(localState.board.present.columns);
         
-        Object.keys(cards).forEach((key) => {
-            cards[key] = List(cards[key]);
-        });
-        
-        localState.board.present.columns = List(localState.board.present.columns);
-        localState.board.present.cards = cards;
+        columns = columns.map((column) => {
+            column.cards = List(column.cards);
+
+            return column;
+        }).toList();
+
+        localState.board.present.columns = columns;
     }
 } catch(e) {
     console.log('Parse error from localStorage');
