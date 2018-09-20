@@ -43,6 +43,7 @@
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
   },
   "dependencies": {
+    "redux-ignore": "^1.2.5",
     "redux-undo": "^0.6.1"
   }
 }

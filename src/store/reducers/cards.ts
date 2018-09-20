@@ -14,13 +14,14 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             columns = columns.update(
                 columns.findIndex((column) => column.id === columnId),
                 (column) => {
+                    column = {...column};
                     column.cards = column.cards.push(newCard);
                     
-                    return {...column};
+                    return column;
                 }
             );
 
-            return {...state, ...columns};
+            return {...state, columns};
         }
         case ActionTypes.REMOVE_CARD: {
             const { columnId, card } = action.payload;
@@ -30,13 +31,14 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             columns = columns.update(
                 columns.findIndex((column) => column.id === columnId),
                 (column) => {
+                    column = {...column};
                     column.cards = column.cards.delete(column.cards.findIndex((card) => card.id === cardId));
 
-                    return {...column};
+                    return column;
                 }
             )
 
-            return {...state, ...columns};
+            return {...state, columns};
         }
         case ActionTypes.UPDATE_CARD: {
             let { columns } = state;
@@ -46,16 +48,17 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             columns = columns.update(
                 columns.findIndex(column => column.id === columnId),
                 (column) => {
+                    column = {...column};
                     column.cards = column.cards.update(
                         column.cards.findIndex((card) => card.id === cardId),
                         () => card
                     );
 
-                    return {...column};
+                    return column;
                 }
             );
 
-            return {...state, ...columns};
+            return {...state, columns};
         }
         case ActionTypes.SHIFT_CARD: {
             let { columns } = state;
@@ -66,22 +69,25 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             columns = columns.update(
                 columns.findIndex(column => column.id === source.droppableId),
                 (column) => {
+                    column = {...column};
                     column.cards = column.cards.delete(source.index);
 
-                    return {...column};
+                    return column;
                 }
             ); 
             
             columns = columns.update(
                 columns.findIndex(column => column.id === destination.droppableId),
                 (column) => {
+                    column = {...column};
                     column.cards = column.cards.insert(destination.index, sourceCard);
-
-                    return {...column};
+                    
+                    return column;
                 }
             );
+            
 
-            return {...state, ...columns};
+            return {...state, columns};
         }
         default:
             return state;

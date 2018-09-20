@@ -33,7 +33,7 @@ const ColumnList = styled.div`
 export function Board(props: Props) {
     const renderColumns = () => {
         const { columns } = props;
-        console.log(columns);
+        
         return columns.map((column: ColumnModel, index) => {
             return (
                 <Column
