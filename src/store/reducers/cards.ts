@@ -1,50 +1,93 @@
 import * as uniqid from "uniqid";
-import { ActionTypes } from "../actions/cards";
-import { Action } from "../actions/cards";
+import { ActionTypes, Action } from "../actions/board";
 import { List, Map } from "immutable";
-import Cards from "../../models/Cards";
-import Column from "../../models/Column";
-import localState from '../local-store';
+import * as fromBoard from "./board";
 
-export type State = Cards;
-
-export const initialState: State = localState && localState.board.cards ? localState.board.cards : {
-    "0asd": List([
-        {
-            id: "01",
-            title: "First Card",
-            text: "asdas",
-        },
-        {   
-            id: "02",
-            title: "Second Card",
-            text: "asdas",
-        }
-])};
-
-export function reducer(state: State = initialState, action: Action) {
+export function reducer(state: fromBoard.State = null, action: Action) {
     switch(action.type) {
         case ActionTypes.CREATE_CARD: {
-            let cards = state;
+            let columns = state.columns;
+
             const { columnId } = action.payload;
             const newCard = {...action.payload.card, id: uniqid()};
 
-            cards[columnId] = !(columnId in cards) ? List(): cards[columnId];
-            cards[columnId] = cards[columnId].push(newCard);
+            columns = columns.update(
+                columns.findIndex((column) => column.id === columnId),
+                (column) => {
+                    column = {...column};
+                    column.cards = column.cards.push(newCard);
+                    
+                    return column;
+                }
+            );
 
-            return {...cards};
+            return {...state, columns};
+        }
+        case ActionTypes.REMOVE_CARD: {
+            const { columnId, card } = action.payload;
+            const cardId = card.id;
+            let columns = state.columns;
+
+            columns = columns.update(
+                columns.findIndex((column) => column.id === columnId),
+                (column) => {
+                    column = {...column};
+                    column.cards = column.cards.delete(column.cards.findIndex((card) => card.id === cardId));
+
+                    return column;
+                }
+            )
+
+            return {...state, columns};
+        }
+        case ActionTypes.UPDATE_CARD: {
+            let { columns } = state;
+            const { columnId, card } = action.payload;
+            const cardId = card.id;
+
+            columns = columns.update(
+                columns.findIndex(column => column.id === columnId),
+                (column) => {
+                    column = {...column};
+                    column.cards = column.cards.update(
+                        column.cards.findIndex((card) => card.id === cardId),
+                        () => card
+                    );
+
+                    return column;
+                }
+            );
+
+            return {...state, columns};
         }
         case ActionTypes.SHIFT_CARD: {
-            let cards = state;
+            let { columns } = state;
             const { cardId, source, destination } = action.payload;
+            
+            const sourceCard = columns.find(column => column.id === source.droppableId).cards.get(source.index);
 
-            const sourceCard = cards[source.droppableId].get(source.index);
-            cards[destination.droppableId] = !(destination.droppableId in cards) ? List(): cards[destination.droppableId];
+            columns = columns.update(
+                columns.findIndex(column => column.id === source.droppableId),
+                (column) => {
+                    column = {...column};
+                    column.cards = column.cards.delete(source.index);
 
-            cards[source.droppableId] = cards[source.droppableId].delete(source.index);
-            cards[destination.droppableId] = cards[destination.droppableId].insert(destination.index, sourceCard).toList();
+                    return column;
+                }
+            ); 
+            
+            columns = columns.update(
+                columns.findIndex(column => column.id === destination.droppableId),
+                (column) => {
+                    column = {...column};
+                    column.cards = column.cards.insert(destination.index, sourceCard);
+                    
+                    return column;
+                }
+            );
+            
 
-            return {...cards};
+            return {...state, columns};
         }
         default:
             return state;

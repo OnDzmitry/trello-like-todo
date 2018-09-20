@@ -1,17 +1,17 @@
-import Column from "../../models/Column";
-import * as uniqid from "uniqid";
 import * as fromColumns from './columns';
 import * as fromCards from './cards';
-import { ActionTypes, Action } from "../actions/board";
-import { Map, List } from 'immutable';
-import { combineReducers } from "redux";
+import { Action } from "../actions/board";
 
 export interface State {
     columns?: fromColumns.State,
-    cards?: fromCards.State
 }
 
-export const reducer = combineReducers<State>({
-    columns: fromColumns.reducer,
-    cards: fromCards.reducer
-});
+export const initialState: State = {
+    columns: fromColumns.initialState,
+}
+
+export const reducer = (state: State, action: Action) => {
+    const columnState = fromColumns.reducer(state, action);
+
+    return fromCards.reducer(columnState, action);
+};

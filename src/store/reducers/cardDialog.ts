@@ -1,11 +1,12 @@
 import * as uniqid from "uniqid";
 import { ActionTypes } from "../actions/cardDialog";
 import { Action } from "../actions/cardDialog";
+import CardModel from "../../models/Card";
 
 export interface State {
     opened: boolean,
     columnId: string,
-    cardId?: string
+    card?: CardModel
 }
 
 export const initialState: State = {
@@ -20,7 +21,7 @@ export function reducer(state: State = initialState, action: Action) {
                 ...state, 
                 opened: action.payload.opened,
                 columnId: action.payload.columnId,
-                cardId: action.payload.cardId 
+                card: action.payload.card 
             };
         }
         case ActionTypes.CLOSE_CARD_DIALOG: {

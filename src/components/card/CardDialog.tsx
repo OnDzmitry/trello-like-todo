@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import { State } from '../../store/reducers/cardDialog';
 import { DispatchFromProps } from "../../containers/CardDialog";
+import CardModel from "../../models/Card";
+import styled from 'styled-components';
 
 export interface CardDialogProps extends State {
     className?: string,
@@ -17,12 +19,38 @@ export interface CardDialogProps extends State {
 
 type Props = DispatchFromProps & CardDialogProps;
 
+const CardDialogButton = styled.button`
+    border-radius: 3px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    &:hover {
+        opacity: 1;
+        background-color: #d9dbdd;
+    }
+    opacity: 0.4;
+    display: none;
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    padding: 3px; 
+    margin: 5px;
+    font-size: 16px;
+`;
+
+const CardDialogContent = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+
 export function CardDialog (props: Props) {
-    let cardTitle = '';
-    let cardText = '';
+    const { card, columnId } = props;
+
+    let cardTitle = card ? card.title : '';
+    let cardText = card ? card.text : '';
 
     const addNewCard = () => {
-        const { columnId } = props;
         const card = {
             id: "",
             title: cardTitle,
@@ -30,6 +58,17 @@ export function CardDialog (props: Props) {
         };
 
         props.createCard(columnId, card);
+        handleClose();
+    }
+
+    const EditCard = () => {
+        const editedCard: CardModel = {
+            id: card.id,
+            title: cardTitle,
+            text: cardText,
+        };
+
+        props.updateCard(columnId, editedCard);
         handleClose();
     }
 
@@ -41,6 +80,11 @@ export function CardDialog (props: Props) {
         cardText = event.target.value;
     }
 
+    const removeCard = (event) => {
+        props.removeCard(columnId, card);
+        handleClose();
+    }
+
     const handleClose = () => {
         props.closeCardDialog();
     }
@@ -48,37 +92,53 @@ export function CardDialog (props: Props) {
     return (                
         <Dialog
             open={props.opened}
+            fullWidth
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
         >
-            <DialogTitle id="form-dialog-title">Add new card</DialogTitle>
+            <DialogTitle id="form-dialog-title">{ card ? "Edit card" : "Add new card" }</DialogTitle>
             <DialogContent>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="title"
-                    label="Title"
-                    type="text"
-                    fullWidth
-                    onChange={updateTitle}
-                />
-                <TextField
-                    multiline={true}
-                    rowsMax={10}
-                    margin="dense"
-                    id="text"
-                    label="Text"
-                    type="text"
-                    fullWidth
-                    onChange={updateText}
-                />
+                <CardDialogContent>
+                    <div>
+                        <TextField
+                            multiline={true}    
+                            autoFocus
+                            margin="dense"
+                            rowsMax={10}
+                            id="title"
+                            label="Title"
+                            type="text"
+                            fullWidth
+                            defaultValue={cardTitle}
+                            onChange={updateTitle}
+                        />
+                        <TextField
+                            multiline={true}
+                            rowsMax={10}
+                            margin="dense"
+                            id="text"
+                            label="Description"
+                            type="text"
+                            fullWidth
+                            defaultValue={cardText}
+                            onChange={updateText}
+                        />
+                    </div>
+                    <div>
+                        {card ? 
+                            <Button color={"secondary"} onClick={removeCard}>
+                                Remove card
+                            </Button> : ''
+                        }
+                    </div>
+                </CardDialogContent>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={addNewCard} color="primary">
-                    Add
+                <Button onClick={card ? EditCard : addNewCard} color="primary">
+                    {card ? "Edit" : "Add"}
                 </Button>
             </DialogActions>
         </Dialog>

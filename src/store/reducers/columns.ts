@@ -2,32 +2,45 @@ import Column from "../../models/Column";
 import * as uniqid from "uniqid";
 import { ActionTypes, Action } from "../actions/board";
 import { Map, List } from 'immutable';
-import localState from '../local-store';
+import * as fromBoard from "./board";
 
 export type State = List<Column>;
 
-export const initialState: State = localState && localState.board.columns ? 
-    List(localState.board.columns) : 
-    List([{
+export const initialState: State = List([
+    {
         id: "0asd",
         title: "First Column",
-    }]);
+        cards: List([
+            {
+                id: "01",
+                title: "First Card",
+                text: "asdas",
+            },
+            {   
+                id: "02",
+                title: "Second Card",
+                text: "asdas",
+            }
+        ])
+    }
+]);
 
-export function reducer(state: State = initialState, action: Action) {
+export function reducer(state: fromBoard.State = null, action: Action) {
     switch(action.type) {
         case ActionTypes.CREATE_COLUMN: {
-            const columns = state;
+            const columns = state.columns;
             const newColumn = action.payload.column;
             newColumn.id = uniqid();
+            newColumn.cards = List();
 
-            return state.push(newColumn);
+            return {...state, columns: columns.push(newColumn)};
         }
         case ActionTypes.REMOVE_COLUMN: {
             return state;
         }
         case ActionTypes.REORDER_COLUMNS: {
             const {startIndex, endIndex} = action.payload;
-            let columns = state;
+            let columns = state.columns;
             const endColumn = columns.get(startIndex);
             const startColumn = columns.get(endIndex);
 
@@ -35,7 +48,7 @@ export function reducer(state: State = initialState, action: Action) {
             columns = columns.splice(startIndex, 1).toList();
             columns = columns.splice(endIndex, 0, removedColumn).toList();
             
-            return columns;
+            return {...state, columns};
         }
         default: {
             return state;

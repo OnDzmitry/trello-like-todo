@@ -1,3 +1,5 @@
+import CardModel from "../../models/Card";
+
 export enum ActionTypes {
     OPEN_CARD_DIALOG = "OPEN_CARD_DIALOG",
     CLOSE_CARD_DIALOG = "CLOSE_CARD_DIALOG"
@@ -9,7 +11,7 @@ export interface OpenCardDialogAction {
     { 
         opened: boolean,
         columnId: string,
-        cardId?: string
+        card?: CardModel
     }
 }
 
@@ -21,13 +23,13 @@ export interface CloseCardDialogAction {
     }
 }
 
-export function openCardDialog(columnId: string, cardId?: string): OpenCardDialogAction {
+export function openCardDialog(columnId: string, card?: CardModel): OpenCardDialogAction {
     return {
         type: ActionTypes.OPEN_CARD_DIALOG,
         payload: {
             opened: true,
             columnId: columnId,
-            cardId: cardId
+            card: card
         }
     };
 }
