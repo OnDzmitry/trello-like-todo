@@ -33,7 +33,8 @@ const CardButton = styled.button`
 `;
 
 interface CardContentProps {
-    isDragging: boolean
+    color: string;
+    isDragging: boolean;
 }
 
 const CardContent = styled.div<CardContentProps>`
@@ -41,13 +42,14 @@ const CardContent = styled.div<CardContentProps>`
     &:hover ${CardButton}{
         display: block !important;
     }
+    background-color: ${props => props.isDragging ? '#eff1f7' : 'white'};
+    background-color: ${props => props.color};
     white-space: pre-wrap;
     &:hover {
-        background-color: #eff1f7;
+        filter: brightness(80%);
     }
     position: relative;
     margin: 5px;
-    background-color: ${props => props.isDragging ? '#eff1f7' : 'white'};
     border-radius: 3px; 
     height: 100%;
 `;
@@ -62,7 +64,7 @@ const CardTitle = styled.div`
 export function Card(props: Props) {
     let isDragging = false;
     const index = props.index;
-    const {id, columnId, title, text} = props;
+    const {id, columnId, title, text, color} = props;
 
     const clippedTitle: string = title.length > 350 ? title.slice(0, 350) + '...' : title;
 
@@ -70,7 +72,8 @@ export function Card(props: Props) {
         const card: CardModel = {
             id: id,
             title: title,
-            text: text
+            text: text,
+            color: color
         };
 
         props.openCardDialog(columnId, card);
@@ -89,7 +92,7 @@ export function Card(props: Props) {
                     {...provided.dragHandleProps}
                     onClick={pickOutCard}
                 >
-                    <CardContent isDragging={snapshot.isDragging}>
+                    <CardContent color={color} isDragging={snapshot.isDragging}>
                         <CardTitle>{clippedTitle}</CardTitle>
                         <CardButton onClick={handleClick}>
                             <EditIcon fontSize={"inherit"}/>
