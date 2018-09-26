@@ -1,17 +1,11 @@
 import * as React from "react";
-import { 
-    TextField,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-    Button 
-} from "@material-ui/core";
+import { TextField, Dialog, DialogTitle, DialogContent,DialogActions, Button, Typography} from "@material-ui/core";
 import { State } from '../../store/reducers/cardDialog';
 import { DispatchFromProps } from "../../containers/CardDialog";
 import CardModel from "../../models/Card";
 import styled from 'styled-components';
+import cardColors from '../../models/CardColors';
+import { CardColors } from './CardColors';
 
 export interface CardDialogProps extends State {
     className?: string,
@@ -49,12 +43,14 @@ export function CardDialog (props: Props) {
 
     let cardTitle = card ? card.title : '';
     let cardText = card ? card.text : '';
+    let cardColor = card ? card.color : cardColors.white;
 
     const addNewCard = () => {
         const card = {
             id: "",
             title: cardTitle,
-            text: cardText
+            text: cardText,
+            color: cardColor,
         };
 
         props.createCard(columnId, card);
@@ -66,6 +62,7 @@ export function CardDialog (props: Props) {
             id: card.id,
             title: cardTitle,
             text: cardText,
+            color: cardColor
         };
 
         props.updateCard(columnId, editedCard);
@@ -89,6 +86,11 @@ export function CardDialog (props: Props) {
         props.closeCardDialog();
     }
     
+    const setCardColor = (key) => {
+        console.log(key);
+        cardColor = cardColors[key];
+    }
+
     return (                
         <Dialog
             open={props.opened}
@@ -123,6 +125,7 @@ export function CardDialog (props: Props) {
                             defaultValue={cardText}
                             onChange={updateText}
                         />
+                        <CardColors setCardColor={setCardColor}></CardColors>
                     </div>
                     <div>
                         {card ? 

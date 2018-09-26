@@ -97,7 +97,7 @@ export class Column extends React.Component<Props, State> {
 
         if (cards) {
             return cards.map((card: CardModel, index) => {
-                return <Card index={index} columnId={id} id={card.id} text={card.text} title={card.title} />;
+                return <Card index={index} color={card.color} columnId={id} id={card.id} text={card.text} title={card.title} />;
             });
         }
     }
