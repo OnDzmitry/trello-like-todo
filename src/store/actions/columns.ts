@@ -7,7 +7,7 @@ export enum ActionTypes {
 }
 
 export interface CreateColumnAction { type: ActionTypes.CREATE_COLUMN, payload: { column: Column}}
-export interface RemoveColumnAction { type: ActionTypes.REMOVE_COLUMN, payload: { columnId: number}}
+export interface RemoveColumnAction { type: ActionTypes.REMOVE_COLUMN, payload: { columnId: string}}
 
 export interface ReorderColumnsAction { 
     type: ActionTypes.REORDER_COLUMNS,
@@ -26,7 +26,7 @@ export function createColumn(column: Column): CreateColumnAction {
     };
 }
 
-export function removeColumn(columnId: number): RemoveColumnAction {
+export function removeColumn(columnId: string): RemoveColumnAction {
     return { 
         type: ActionTypes.REMOVE_COLUMN,
         payload: { columnId },

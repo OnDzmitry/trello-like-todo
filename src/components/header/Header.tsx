@@ -41,13 +41,13 @@ export function Header(props: Props) {
                 <Typography style={{flexGrow: 1}} variant="title" color="inherit">
                     Trello
                 </Typography>
-                <Button variant="fab" mini color="secondary" aria-label="Undo" onClick={onUndo}>
+                <Button variant="fab" style={{marginLeft: 5}} mini color="primary" aria-label="Undo" onClick={onUndo}>
                     <UndoIcon/>
                 </Button>
-                <Button variant="fab" mini color="secondary" aria-label="Redo" onClick={onRedo}>
+                <Button variant="fab" style={{marginLeft: 5}} mini color="primary" aria-label="Redo" onClick={onRedo}>
                     <RedoIcon/>
                 </Button>
-                <Button variant="fab" mini color="secondary" aria-label="Add" onClick={openColumnDialog}>
+                <Button variant="fab" style={{marginLeft: 5}} mini color="primary" aria-label="Add" onClick={openColumnDialog}>
                     <AddIcon/>
                 </Button>
             </Toolbar>

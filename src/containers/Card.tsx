@@ -3,10 +3,11 @@ import CardModel from '../models/Card';
 import { State } from '../store/reducers';
 import { Card, CardProps } from '../components/card/Card';
 import * as fromColumnContainer from './Column';
-import { openCardDialog } from '../store/actions/cardDialog';
+import { openCardDialog, OpenCardDialogAction } from '../store/actions/cardDialog';
 
-
-export interface DispatchFromProps extends fromColumnContainer.DispatchFromProps {}
+export interface DispatchFromProps {
+    openCardDialog: (columnId: string, card?: CardModel) => OpenCardDialogAction
+}
 
 const mapDispatchToProps = {
     openCardDialog: openCardDialog,

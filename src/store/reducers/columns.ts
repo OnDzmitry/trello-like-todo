@@ -36,7 +36,14 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             return {...state, columns: columns.push(newColumn)};
         }
         case ActionTypes.REMOVE_COLUMN: {
-            return state;
+            let columns = state.columns;
+            const { columnId } = action.payload;
+
+            columns = columns.delete(
+                columns.findIndex(column => column.id === columnId)
+            );
+
+            return {...state, columns};
         }
         case ActionTypes.REORDER_COLUMNS: {
             const {startIndex, endIndex} = action.payload;
