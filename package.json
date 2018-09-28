@@ -43,6 +43,8 @@
     "server": "webpack-dev-server --mode development --content-base=dist --open --hot --inline --watch --config=webpack.config.js"
   },
   "dependencies": {
+    "promise-file-reader": "^1.0.2",
+    "react-image-dropzone": "^1.11.0",
     "redux-ignore": "^1.2.5",
     "redux-undo": "^0.6.1"
   }

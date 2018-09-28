@@ -27,7 +27,8 @@ const CardColorBlock = styled.span<CardColorBlockProps>`
 `;
 
 export interface CardColorsProps {
-    setCardColor: Function
+    setCardColor: Function,
+    selectedColor: string
 }
 
 export interface CardColorsState {
@@ -38,7 +39,7 @@ export class CardColors extends React.Component<CardColorsProps, CardColorsState
     constructor(props: CardColorsProps) {
         super(props);
         this.state = {
-            selectedColor: cardColors.white
+            selectedColor: this.props.selectedColor
         };
     }
 
@@ -51,6 +52,7 @@ export class CardColors extends React.Component<CardColorsProps, CardColorsState
 
     renderColorBlocks = () => {
         const selectedColor = this.state.selectedColor;
+        
         return Object.keys(cardColors).map((key) => {
             return (
                 <CardColorBlock 

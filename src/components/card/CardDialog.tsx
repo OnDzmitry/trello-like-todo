@@ -6,6 +6,8 @@ import CardModel from "../../models/Card";
 import styled from 'styled-components';
 import cardColors from '../../models/CardColors';
 import { CardColors } from './CardColors';
+import { CardImageLoader } from './CardImageLoader';
+import * as PromiseFileReader from 'promise-file-reader';
 
 export interface CardDialogProps extends State {
     className?: string,
@@ -44,6 +46,7 @@ export function CardDialog (props: Props) {
     let cardTitle = card ? card.title : '';
     let cardText = card ? card.text : '';
     let cardColor = card ? card.color : cardColors.white;
+    let cardImage = card ? card.image : '';
 
     const addNewCard = () => {
         const card = {
@@ -51,6 +54,7 @@ export function CardDialog (props: Props) {
             title: cardTitle,
             text: cardText,
             color: cardColor,
+            image: cardImage,
         };
 
         props.createCard(columnId, card);
@@ -62,7 +66,8 @@ export function CardDialog (props: Props) {
             id: card.id,
             title: cardTitle,
             text: cardText,
-            color: cardColor
+            color: cardColor,
+            image: cardImage,
         };
 
         props.updateCard(columnId, editedCard);
@@ -87,8 +92,16 @@ export function CardDialog (props: Props) {
     }
     
     const setCardColor = (key) => {
-        console.log(key);
-        cardColor = cardColors[key];
+        cardColor = key;
+    }
+
+    const setCardImage = async (file) => {
+        cardImage = await PromiseFileReader.readAsDataURL(file.file);
+        console.log(cardImage);
+    }
+
+    const deleteCardImage = () => {
+        cardImage = '';
     }
 
     return (                
@@ -114,6 +127,7 @@ export function CardDialog (props: Props) {
                             defaultValue={cardTitle}
                             onChange={updateTitle}
                         />
+                        <CardImageLoader setImage={setCardImage} deleteImage={deleteCardImage} defaultImage={cardImage ? cardImage : ''}/>
                         <TextField
                             multiline={true}
                             rowsMax={10}
@@ -125,7 +139,7 @@ export function CardDialog (props: Props) {
                             defaultValue={cardText}
                             onChange={updateText}
                         />
-                        <CardColors setCardColor={setCardColor}></CardColors>
+                        <CardColors selectedColor={cardColor} setCardColor={setCardColor}></CardColors>
                     </div>
                     <div>
                         {card ? 

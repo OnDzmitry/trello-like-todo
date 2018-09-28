@@ -5,7 +5,8 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { DispatchFromProps } from '../../containers/Card';
- 
+import cardColors from '../../models/CardColors';
+
 export interface CardProps extends CardModel {
     index: number;
     columnId: string;
@@ -32,6 +33,15 @@ const CardButton = styled.button`
     font-size: 16px;
 `;
 
+const CardImageContainer = styled.div`
+    margin: 0px 20px;
+`;
+
+const CardImage = styled.img`
+    width: 100%;
+    max-height: 400px;
+`;
+
 interface CardContentProps {
     color: string;
     isDragging: boolean;
@@ -43,7 +53,7 @@ const CardContent = styled.div<CardContentProps>`
         display: block !important;
     }
     background-color: ${props => props.isDragging ? '#eff1f7' : 'white'};
-    background-color: ${props => props.color};
+    background-color: ${props => cardColors[props.color]};
     white-space: pre-wrap;
     &:hover {
         filter: brightness(80%);
@@ -64,7 +74,7 @@ const CardTitle = styled.div`
 export function Card(props: Props) {
     let isDragging = false;
     const index = props.index;
-    const {id, columnId, title, text, color} = props;
+    const {id, columnId, title, text, color, image} = props;
 
     const clippedTitle: string = title.length > 350 ? title.slice(0, 350) + '...' : title;
 
@@ -73,7 +83,8 @@ export function Card(props: Props) {
             id: id,
             title: title,
             text: text,
-            color: color
+            color: color,
+            image: props.image
         };
 
         props.openCardDialog(columnId, card);
@@ -94,6 +105,9 @@ export function Card(props: Props) {
                 >
                     <CardContent color={color} isDragging={snapshot.isDragging}>
                         <CardTitle>{clippedTitle}</CardTitle>
+                        <CardImageContainer>
+                            <CardImage src={image}/>
+                        </CardImageContainer>
                         <CardButton onClick={handleClick}>
                             <EditIcon fontSize={"inherit"}/>
                         </CardButton>
