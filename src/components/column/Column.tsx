@@ -47,7 +47,7 @@ const ColumnEditButton = styled.button`
 
 const ColumnContent = styled.div`
     position: relative;
-    margin: 16px;
+    margin: 15px;
     width: 300px;
     display: flex;
     flex-direction: column;
@@ -97,7 +97,17 @@ export class Column extends React.Component<Props, State> {
 
         if (cards) {
             return cards.map((card: CardModel, index) => {
-                return <Card index={index} columnId={id} id={card.id} text={card.text} title={card.title} />;
+            return (
+                <Card 
+                    index={index} 
+                    color={card.color} 
+                    image={card.image} 
+                    columnId={id} 
+                    id={card.id} 
+                    text={card.text} 
+                    title={card.title} 
+                    />
+                );
             });
         }
     }
