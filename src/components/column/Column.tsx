@@ -105,7 +105,8 @@ export class Column extends React.Component<Props, State> {
                     columnId={id} 
                     id={card.id} 
                     text={card.text} 
-                    title={card.title} 
+                    title={card.title}
+                    subscribe={card.subscribe} 
                     />
                 );
             });

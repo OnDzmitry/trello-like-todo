@@ -1,6 +1,8 @@
 import * as React from "react";
 import CardModel from "../../models/Card";
 import EditIcon from "@material-ui/icons/Edit";
+import SubscribeIcon from "@material-ui/icons/Visibility";
+import TodoIcon from "@material-ui/icons/Done";
 import { Droppable } from 'react-beautiful-dnd';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
@@ -33,13 +35,23 @@ const CardButton = styled.button`
     font-size: 16px;
 `;
 
+const CardStatusBarContainer = styled.div`
+    max-height: 30px;
+`;
+
+const CardStatusItem = styled.span`
+    opacity: 0.6;
+    margin: 0px 7px;
+`;
+
 const CardImageContainer = styled.div`
-    margin: 0px 20px;
+    max-height: 400px;
+    font-size: 0;
 `;
 
 const CardImage = styled.img`
     width: 100%;
-    max-height: 400px;
+    cursor: pointer;
 `;
 
 interface CardContentProps {
@@ -74,7 +86,7 @@ const CardTitle = styled.div`
 export function Card(props: Props) {
     let isDragging = false;
     const index = props.index;
-    const {id, columnId, title, text, color, image} = props;
+    const {id, columnId, title, text, color, image, subscribe} = props;
 
     const clippedTitle: string = title.length > 350 ? title.slice(0, 350) + '...' : title;
 
@@ -84,7 +96,8 @@ export function Card(props: Props) {
             title: title,
             text: text,
             color: color,
-            image: props.image
+            image: image,
+            subscribe: subscribe
         };
 
         props.openCardDialog(columnId, card);
@@ -104,10 +117,16 @@ export function Card(props: Props) {
                     onClick={pickOutCard}
                 >
                     <CardContent color={color} isDragging={snapshot.isDragging}>
-                        <CardTitle>{clippedTitle}</CardTitle>
                         <CardImageContainer>
                             <CardImage src={image}/>
                         </CardImageContainer>
+                        <CardTitle>{clippedTitle}</CardTitle>
+                        <CardStatusBarContainer>
+                            { subscribe ? <CardStatusItem><SubscribeIcon fontSize={"inherit"}/></CardStatusItem>  : ''}
+                            <CardStatusItem>
+                                <TodoIcon fontSize={"inherit"}/>
+                            </CardStatusItem>
+                        </CardStatusBarContainer>
                         <CardButton onClick={handleClick}>
                             <EditIcon fontSize={"inherit"}/>
                         </CardButton>
