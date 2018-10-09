@@ -1,11 +1,13 @@
 import * as React from "react";
 import { TextField, Dialog, DialogTitle, DialogContent,DialogActions, Button, Typography} from "@material-ui/core";
-import { State } from '../../store/reducers/cardDialog';
-import { DispatchFromProps } from "../../containers/CardDialog";
-import CardModel from "../../models/Card";
+import { State } from '../../../store/reducers/cardDialog';
+import { DispatchFromProps } from "../../../containers/CardDialog";
+import CardModel from "../../../models/Card";
 import styled from 'styled-components';
-import cardColors from '../../models/CardColors';
-import { CardColors } from './CardColors';
+import cardColors from '../../../models/CardColors';
+import { Colors } from './Colors';
+import { ImageLoader } from './ImageLoader';
+import * as PromiseFileReader from 'promise-file-reader';
 
 export interface CardDialogProps extends State {
     className?: string,
@@ -44,13 +46,17 @@ export function CardDialog (props: Props) {
     let cardTitle = card ? card.title : '';
     let cardText = card ? card.text : '';
     let cardColor = card ? card.color : cardColors.white;
+    let cardImage = card ? card.image : '';
+    let cardSubscirbe = card ? card.subscribe : false;
 
     const addNewCard = () => {
-        const card = {
+        const card: CardModel = {
             id: "",
             title: cardTitle,
             text: cardText,
             color: cardColor,
+            image: cardImage,
+            subscribe: cardSubscirbe
         };
 
         props.createCard(columnId, card);
@@ -62,7 +68,9 @@ export function CardDialog (props: Props) {
             id: card.id,
             title: cardTitle,
             text: cardText,
-            color: cardColor
+            color: cardColor,
+            image: cardImage,
+            subscribe: cardSubscirbe
         };
 
         props.updateCard(columnId, editedCard);
@@ -77,7 +85,7 @@ export function CardDialog (props: Props) {
         cardText = event.target.value;
     }
 
-    const removeCard = (event) => {
+    const removeCard = () => {
         props.removeCard(columnId, card);
         handleClose();
     }
@@ -87,8 +95,19 @@ export function CardDialog (props: Props) {
     }
     
     const setCardColor = (key) => {
-        console.log(key);
-        cardColor = cardColors[key];
+        cardColor = key;
+    }
+
+    const setCardImage = async (file) => {
+        cardImage = await PromiseFileReader.readAsDataURL(file.file);
+    }
+
+    const deleteCardImage = () => {
+        cardImage = '';
+    }
+
+    const subscribeToCard = () => {
+        cardSubscirbe = !cardSubscirbe;
     }
 
     return (                
@@ -102,6 +121,7 @@ export function CardDialog (props: Props) {
             <DialogContent>
                 <CardDialogContent>
                     <div>
+                        <ImageLoader setImage={setCardImage} deleteImage={deleteCardImage} defaultImage={cardImage ? cardImage : ''}/>
                         <TextField
                             multiline={true}    
                             autoFocus
@@ -125,9 +145,12 @@ export function CardDialog (props: Props) {
                             defaultValue={cardText}
                             onChange={updateText}
                         />
-                        <CardColors setCardColor={setCardColor}></CardColors>
+                        <Colors selectedColor={cardColor} setCardColor={setCardColor}></Colors>
                     </div>
                     <div>
+                        <Button color={"primary"} onClick={subscribeToCard}>
+                            { !cardSubscirbe ? 'Subscribe' : 'Unsubscribe' }
+                        </Button>
                         {card ? 
                             <Button color={"secondary"} onClick={removeCard}>
                                 Remove card

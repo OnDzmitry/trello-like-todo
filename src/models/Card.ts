@@ -3,5 +3,6 @@ export default interface Card {
     title: string,
     text: string,
     color: string,
-    subscribe?: boolean,
+    image?: string,
+    subscribe: boolean,
 }

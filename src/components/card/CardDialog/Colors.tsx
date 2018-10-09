@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 import { TextField, Dialog, DialogTitle, DialogContent,DialogActions, Button, Typography} from "@material-ui/core";
 import * as React from "react";
-import cardColors from '../../models/CardColors';
+import cardColors from '../../../models/CardColors';
 
-export interface CardColorBlockProps {
+export interface ColorBlockProps {
     color: string,
     isSelected: boolean
 }
 
-const CardColorBlocks = styled.div`
+const ColorBlocks = styled.div`
     height: 50px;
 `;
 
-const CardColorLabel = styled.p``;
+const ColorLabel = styled.p``;
 
-const CardColorsContainer = styled.div``;
+const ColorsContainer = styled.div``;
 
-const CardColorBlock = styled.span<CardColorBlockProps>`
+const ColorBlock = styled.span<ColorBlockProps>`
     width: 30px;
     margin: 5px 5px;
     cursor: pointer;
@@ -26,19 +26,20 @@ const CardColorBlock = styled.span<CardColorBlockProps>`
     background-color: ${props => props.color};
 `;
 
-export interface CardColorsProps {
-    setCardColor: Function
-}
-
-export interface CardColorsState {
+export interface ColorsProps {
+    setCardColor: Function,
     selectedColor: string
 }
 
-export class CardColors extends React.Component<CardColorsProps, CardColorsState> {
-    constructor(props: CardColorsProps) {
+export interface ColorsState {
+    selectedColor: string
+}
+
+export class Colors extends React.Component<ColorsProps, ColorsState> {
+    constructor(props: ColorsProps) {
         super(props);
         this.state = {
-            selectedColor: cardColors.white
+            selectedColor: this.props.selectedColor
         };
     }
 
@@ -51,9 +52,10 @@ export class CardColors extends React.Component<CardColorsProps, CardColorsState
 
     renderColorBlocks = () => {
         const selectedColor = this.state.selectedColor;
+        
         return Object.keys(cardColors).map((key) => {
             return (
-                <CardColorBlock 
+                <ColorBlock 
                     id={key} 
                     color={cardColors[key]} 
                     isSelected={selectedColor === key ? true : false} 
@@ -65,14 +67,14 @@ export class CardColors extends React.Component<CardColorsProps, CardColorsState
 
     render() {
         return(
-            <CardColorsContainer>
-                <CardColorLabel>
+            <ColorsContainer>
+                <ColorLabel>
                     <Typography variant="subheading" gutterBottom>Card color</Typography>
-                </CardColorLabel>
-                <CardColorBlocks>
+                </ColorLabel>
+                <ColorBlocks>
                     {this.renderColorBlocks()}
-                </CardColorBlocks>
-            </CardColorsContainer>
+                </ColorBlocks>
+            </ColorsContainer>
         );
     }
 }
