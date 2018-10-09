@@ -16,12 +16,14 @@ export const initialState: State = List([
                 title: "First Card",
                 text: "asdas",
                 color: "",
+                subscribe: false
             },
             {   
                 id: "02",
                 title: "Second Card",
                 text: "asdas",
                 color: " ",
+                subscribe: false
             }
         ])
     }

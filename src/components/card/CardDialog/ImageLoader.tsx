@@ -3,17 +3,17 @@ import { TextField, Dialog, DialogTitle, DialogContent,DialogActions, Button, Ty
 import * as React from "react";
 import ImageDropZone from "react-image-dropzone";
 
-const CardImageLoaderContent = styled.div`
+const ImageLoaderContent = styled.div`
     margin: 10px 0px;
 `;
 
-export interface CardImageLoaderProps {
+export interface ImageLoaderProps {
     setImage: Function,
     deleteImage: Function,
     defaultImage: string
 }
 
-export function CardImageLoader(props) {
+export function ImageLoader(props) {
     const imagePicked = (image) => {
         props.setImage(image);
     }
@@ -23,7 +23,7 @@ export function CardImageLoader(props) {
     }
 
     return(
-        <CardImageLoaderContent>
+        <ImageLoaderContent>
             <Typography>
                 <ImageDropZone
                     anySize={true}
@@ -36,7 +36,7 @@ export function CardImageLoader(props) {
                     imageDeleted={imageDeleted}
                 />
             </Typography>
-        </CardImageLoaderContent>
+        </ImageLoaderContent>
     );
     
 }

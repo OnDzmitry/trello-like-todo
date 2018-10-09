@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { State } from '../store/reducers'
 import { closeCardDialog, CloseCardDialogAction } from '../store/actions/cardDialog';
-import { CardDialog } from '../components/card/CardDialog';
+import { CardDialog } from '../components/card/CardDialog/CardDialog';
 import { createCard, CreateCardAction, removeCard } from '../store/actions/cards';
 import * as fromCardDialogReducer from '../store/reducers/cardDialog';
 import { UpdateCardAction, updateCard, RemoveCardAction} from '../store/actions/cards';

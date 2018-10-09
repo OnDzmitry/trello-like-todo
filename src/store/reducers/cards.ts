@@ -2,6 +2,7 @@ import * as uniqid from "uniqid";
 import { ActionTypes, Action } from "../actions/board";
 import { List, Map } from "immutable";
 import * as fromBoard from "./board";
+import CardModel from "../../models/Card";
 
 export function reducer(state: fromBoard.State = null, action: Action) {
     switch(action.type) {
@@ -9,7 +10,7 @@ export function reducer(state: fromBoard.State = null, action: Action) {
             let columns = state.columns;
 
             const { columnId } = action.payload;
-            const newCard = {...action.payload.card, id: uniqid()};
+            const newCard: CardModel = {...action.payload.card, id: uniqid()};
 
             columns = columns.update(
                 columns.findIndex((column) => column.id === columnId),
